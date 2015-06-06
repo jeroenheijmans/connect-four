@@ -1,11 +1,22 @@
 (function (cf) {
 	cf.Slot = function() {
-		var self = this;
+		var self = this,
+			takenByPlayer = null;
 
-		self.takenByPlayer = null;
+		self.getPlayer = function() {
+			return takenByPlayer;
+		}
 
 		self.isEmpty = function() {
-			return self.takenByPlayer === null;
+			return takenByPlayer === null;
+		}
+
+		self.setPlayer = function(player) {
+			takenByPlayer = player;
+		}
+
+		self.clear = function() {
+			takenByPlayer = null;
 		}
 	};
 }(ConnectFour || {}));
