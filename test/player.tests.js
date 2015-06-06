@@ -1,4 +1,7 @@
 (function (cf, test) {
+	QUnit.module("Players", {
+	});
+
 	test("Can create default player", function(assert){
 		var player = new cf.Player();
 		assert.ok(!!player);

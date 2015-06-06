@@ -1,4 +1,7 @@
 (function (cf, test) {
+	QUnit.module("Slots", {
+	});
+
 	test("Can create default slot", function(assert) {
 		var slot = new cf.Slot();
 		assert.ok(!!slot);

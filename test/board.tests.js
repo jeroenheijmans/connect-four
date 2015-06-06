@@ -1,4 +1,8 @@
 (function (cf, test) {
+
+	QUnit.module("Boards", {
+	});
+
 	var defaultBoardWidth = 7, defaultBoardHeight = 6;
 
 	test("Can create default board", function(assert) {
