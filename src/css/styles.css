@@ -1,0 +1,49 @@
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto; 
+    width: /*whatever width you want*/;
+}
+
+#board {
+	background-color: #17527c;
+	border: 5px solid #17527c;
+	margin: 0 auto;
+	box-shadow: 3px 3px 3px rgba(23,82,124,0.5);
+}
+
+#board td {
+	width: 50px;
+	height: 50px;
+}
+
+#board td .slot {
+	margin: 0 auto;
+	width: 80%;
+	height: 80%;
+	border-radius: 50%;
+	background-color: #fff;
+	box-shadow:  4px  4px 4px rgba(0,0,0,0.2) inset,
+				-1px -1px 4px rgba(0,0,0,0.2) inset,
+				 2px  2px     rgba(0,0,0,0.1),
+				-2px -2px     rgba(0,0,0,0.1);
+}
+
+#board td.player-one .slot {
+	background-color: #c12424;
+}
+
+#board td.player-two .slot {
+	background-color: #ffd819;
+}

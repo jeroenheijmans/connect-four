@@ -1,7 +1,8 @@
 (function (cf) {
-	cf.Player = function() {
+	cf.Player = function(name, isFirstPlayer) {
 		var self = this;
 
-		self.name = "New player";
+		self.name = name || "New player";
+		self.isFirstPlayer = !!isFirstPlayer;
 	};
 }(ConnectFour || {}));
