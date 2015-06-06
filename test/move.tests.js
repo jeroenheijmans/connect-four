@@ -30,7 +30,7 @@
 		fakeBoard.slots[0][0].setPlayer = function(player) {
 			assert.strictEqual(player, fakeBluePlayer);
 		};
-		expect(1);
+		assert.expect(1);
 		move.redo(fakeBoard);
 	});
 
@@ -39,7 +39,7 @@
 		fakeBoard.slots[1][1].setPlayer = function(player) {
 			assert.ok(true, "Redo should call setPlayer on slot [1,1]");
 		};
-		expect(1);
+		assert.expect(1);
 		move.redo(fakeBoard);
 	});
 
@@ -48,7 +48,7 @@
 		fakeBoard.slots[0][0].clear = function() {
 			assert.ok(true, "Slot should be cleared");
 		};
-		expect(1);
+		assert.expect(1);
 		move.undo(fakeBoard);
 	});
 
@@ -57,7 +57,7 @@
 		fakeBoard.slots[1][1].clear = function() {
 			assert.ok(true, "Undo should call clear on slot [1,1]");
 		};
-		expect(1);
+		assert.expect(1);
 		move.undo(fakeBoard);
 	});
 
