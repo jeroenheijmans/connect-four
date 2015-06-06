@@ -1,5 +1,5 @@
 (function (cf, test) {
-	var blue, red;
+	var yellow, red;
 
 	// Helper function to generate slots:
 	function getFakeSlot(player) {
@@ -16,7 +16,7 @@
 
 	QUnit.module("Util", {
 		beforeEach: function() {
-			blue = { name: 'Player 1 (blue)' };
+			yellow = { name: 'Player 1 (yellow)' };
 			red = { name: 'Player 2 (red)' };
 		}
 	});
@@ -27,47 +27,47 @@
 	});
 
 	test("findRanges returns single range for [x]", function(assert) {
-		var lineOfSlots = [getFakeSlot(blue)];
+		var lineOfSlots = [getFakeSlot(yellow)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
-		assertRangeIsOk(assert, ranges[0], blue, 1);
+		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
 	test("findRanges returns single range for [x, x]", function(assert) {
-		var lineOfSlots = [getFakeSlot(blue), getFakeSlot(blue)];
+		var lineOfSlots = [getFakeSlot(yellow), getFakeSlot(yellow)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
-		assertRangeIsOk(assert, ranges[0], blue, 2);
+		assertRangeIsOk(assert, ranges[0], yellow, 2);
 	});
 
 	test("findRanges returns two ranges for [x, y]", function(assert) {
-		var lineOfSlots = [getFakeSlot(blue), getFakeSlot(red)];
+		var lineOfSlots = [getFakeSlot(yellow), getFakeSlot(red)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 2);
-		assertRangeIsOk(assert, ranges[0], blue, 1);
+		assertRangeIsOk(assert, ranges[0], yellow, 1);
 		assertRangeIsOk(assert, ranges[1], red, 1);
 	});
 
 	test("findRanges returns two ranges for [x, null, y]", function(assert) {
-		var lineOfSlots = [getFakeSlot(blue), getFakeSlot(null), getFakeSlot(red)];
+		var lineOfSlots = [getFakeSlot(yellow), getFakeSlot(null), getFakeSlot(red)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 2);
-		assertRangeIsOk(assert, ranges[0], blue, 1);
+		assertRangeIsOk(assert, ranges[0], yellow, 1);
 		assertRangeIsOk(assert, ranges[1], red, 1);
 	});
 
 	test("findRanges returns single range for [null, x]", function(assert) {
-		var lineOfSlots = [getFakeSlot(null), getFakeSlot(blue)];
+		var lineOfSlots = [getFakeSlot(null), getFakeSlot(yellow)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
-		assertRangeIsOk(assert, ranges[0], blue, 1);
+		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
 	test("findRanges returns single range for [null, null, x]", function(assert) {
-		var lineOfSlots = [getFakeSlot(null), getFakeSlot(null), getFakeSlot(blue)];
+		var lineOfSlots = [getFakeSlot(null), getFakeSlot(null), getFakeSlot(yellow)];
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
-		assertRangeIsOk(assert, ranges[0], blue, 1);
+		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
 
