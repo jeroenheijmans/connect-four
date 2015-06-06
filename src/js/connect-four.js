@@ -1,1 +1,2 @@
-// Main entry point for ConnectFour, will bootstrap the application.
+window.ConnectFour = {
+};
