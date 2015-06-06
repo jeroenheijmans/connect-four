@@ -68,15 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		redrawBoard(board);
-
-		// Scaffolding / testing:
-		board.slots[0][0].setPlayer(player1);
-		board.slots[0][1].setPlayer(player2);
-		board.slots[1][1].setPlayer(player1);
-		board.slots[0][2].setPlayer(player2);
-		board.slots[1][2].setPlayer(player1);
-		board.slots[2][2].setPlayer(player2);
-
 		redrawSlots(board);
 
 	}(window.ConnectFour))
