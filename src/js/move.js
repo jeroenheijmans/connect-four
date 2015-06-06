@@ -1,13 +1,13 @@
 (function (cf) {
-	cf.Move = function(rowIndex, columnIndex, player) {
+	cf.Move = function(rowIndex, colIndex, player) {
 		var self = this;
 
-		self.undo = function() {
-
+		self.undo = function(board) {
+			board.slots[rowIndex][colIndex].clear();
 		}
 
-		self.redo = function() {
-
+		self.redo = function(board) {
+			board.slots[rowIndex][colIndex].setPlayer(player);
 		}
 	};
 }(ConnectFour || {}));
