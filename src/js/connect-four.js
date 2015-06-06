@@ -5,17 +5,26 @@ document.addEventListener("DOMContentLoaded", function() {
 		var board = new cf.Board(),
 			player1 = new cf.Player("Player 1", true),
 			player2 = new cf.Player("Player 2"),
-			match = new cf.Match(),
-			tableElement = document.getElementById('board'),
+			currentPlayer = player1, // TODO: move this to business logic
+			match = new cf.Match(board),
+			tableHead = document.getElementById('board-head'),
+			tableBody = document.getElementById('board-body'),
 			slotToElementMap = {};
 
+		function doMove(eventArgs) {
+			var col = eventArgs.srcElement.dataset.col;
+			var move = new cf.Move(col, currentPlayer);
+			currentPlayer = currentPlayer === player1 ? player2 : player1;
+			match.doMove(move);
+			redrawSlots(board);
+		}
 
 		function getKey(r, c) {
 			return r.toString() + ";" + c.toString();
 		}
 
 		function redrawBoard(board) {
-			tableElement.innerHTML = "";
+			tableBody.innerHTML = "";
 
 			for (var r = 0; r < board.height; r++) {
 				var tr = document.createElement("tr");
@@ -27,8 +36,20 @@ document.addEventListener("DOMContentLoaded", function() {
 					tr.appendChild(td);
 					slotToElementMap[getKey(r,c)] = td;
 				}
-				tableElement.insertBefore(tr, tableElement.firstChild);
+				tableBody.insertBefore(tr, tableBody.firstChild);
 			}
+
+			var tr = document.createElement("tr");
+			for (var c = 0; c < board.width; c++) {
+				var th = document.createElement("th");
+				var btn = document.createElement("button");
+				btn.className = "do-move";
+				btn.dataset.col = c;
+				btn.addEventListener("click", doMove, false);
+				th.appendChild(btn);
+				tr.appendChild(th);
+			}
+			tableHead.appendChild(tr);
 		}
 
 		function redrawSlots(board) {
@@ -60,4 +81,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	}(window.ConnectFour))
 });
-

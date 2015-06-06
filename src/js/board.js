@@ -15,11 +15,11 @@
 			}
 		}
 
-		function getRowSlotLines() {
+		self.getRows = function() {
 			return self.slots;
 		}
 
-		function getColumnSlotLines() {
+		self.getColumns = function() {
 			var transposed = new Array(self.width);
 
 			for (var r = 0; r < self.height; r++) {
@@ -32,7 +32,7 @@
 			return transposed;
 		}
 
-		function getDiagonalSlotLines() {
+		self.getDiagonals = function() {
 			var diagonalLines = [],
 				r = self.height,
 				c = 0;
@@ -56,9 +56,9 @@
 
 		function findWinningRanges() {
 			var winningRanges = [], 
-				slotRows = getRowSlotLines()
-							.concat(getColumnSlotLines())
-							.concat(getDiagonalSlotLines());
+				slotRows = self.getRows()
+							.concat(self.getColumns())
+							.concat(self.getDiagonals());
 
 			for (var r = 0; r < slotRows.length; r++) {
 				winningRanges = winningRanges.concat(

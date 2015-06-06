@@ -17,18 +17,17 @@
 }
 
 #board {
-	background-color: #17527c;
-	border: 5px solid #17527c;
 	margin: 0 auto;
-	box-shadow: 3px 3px 3px rgba(23,82,124,0.5);
 }
 
-#board td {
+#board-body td {
+	background-color: #17527c;
+	border: 5px solid #17527c;
 	width: 50px;
 	height: 50px;
 }
 
-#board td .slot {
+#board-body .slot {
 	margin: 0 auto;
 	width: 80%;
 	height: 80%;
@@ -40,10 +39,20 @@
 				-2px -2px     rgba(0,0,0,0.1);
 }
 
-#board td.player-one .slot {
+#board-body .player-one .slot {
 	background-color: #c12424;
 }
 
-#board td.player-two .slot {
+#board-body .player-two .slot {
 	background-color: #ffd819;
+}
+
+.do-move:after {
+	vertical-align: middle;
+	content: '\25BC';
+}
+
+#board-head th {
+	padding: 5px;
+	vertical-align: middle;
 }
