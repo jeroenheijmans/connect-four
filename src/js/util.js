@@ -31,8 +31,26 @@
 				moves: match.getMoves().map(function(m) {
 					return m.getCoordinates();
 				}),
-				hasWinner: match.hasWinner()
+				hasWinner: match.hasWinner(),
+				timestamp: Date.now()
 			};
+		},
+
+		importMatch: function(matchData) {
+			var match = new cf.Match(), moves = [], player;
+
+			for (var i = 0; i < matchData.moves.length; i++) {
+				// TODO: This does not feel quite right. Why do Move
+				// objects need a player at all? Couldn't a match
+				// determine that whenever (re)doing it?
+				player = i % 2 === 0 ? match.player1 : match.player2;
+
+				moves.push(new cf.Move(matchData.moves[1], player));
+			}
+
+			match.loadMovesOnRedoStack(moves);
+
+			return match;
 		}
 	};
 }(ConnectFour || {}));

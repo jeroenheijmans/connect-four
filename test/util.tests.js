@@ -141,5 +141,28 @@
 		assert.strictEqual(result.moves[0][1], 4);
 	});
 
+	test("exportMatch will note a timestamp", function(assert) {
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.strictEqual(typeof result.timestamp, "number");
+	});
+
+	test("importMatch can handle most default game", function(assert) {
+		var matchData = { moves: [] };
+		var match = cf.Util.importMatch(matchData);
+		assert.ok(!!match);
+	});
+
+	test("importMatch result for single-move match allows redo", function(assert) {
+		var matchData = { moves: [[0,0]] };
+		var match = cf.Util.importMatch(matchData);
+		assert.strictEqual(match.canRedo(), true);
+	});
+
+	test("importMatch result for two-move match allows redo", function(assert) {
+		var matchData = { moves: [[0,0],[0,1]] };
+		var match = cf.Util.importMatch(matchData);
+		assert.strictEqual(match.canRedo(), true);
+	});
+
 
 }(ConnectFour, QUnit.test));
