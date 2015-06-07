@@ -100,9 +100,12 @@
 	border: 1px solid #ccc;
 	box-shadow: 2px 2px 4px #000;
 	padding: 10px 20px;
+	opacity: 0.95;
+}
+
+#message {
 	font-size: 1.5em;
 	font-weight: bold;
-	opacity: 0.95;
 }
 
 #winner.player-one {

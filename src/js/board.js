@@ -26,6 +26,14 @@
 			}
 		}
 
+		self.clear = function() {
+			for (var r = 0; r < self.slots.length; r++){
+				for (var c = 0; c < self.slots[r].length; c++) {
+					self.slots[r][c].clear();
+				}
+			}
+		};
+
 		self.addBoardChangeEventHandler = function(handler) {
 			stateChangeEventHandlers.push(handler);
 		};

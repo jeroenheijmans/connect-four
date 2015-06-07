@@ -9,6 +9,7 @@
 			};
 
 			fakeBoard = {
+				clear: function() { },
 				slots: []
 			};
 		}
@@ -106,22 +107,25 @@
 	});
 
 	test("Starting a fresh match will clear board slots", function(assert) {
-		var fakeSlot = { clear: function() { assert.ok(true); } };
-		fakeBoard.slots.push([fakeSlot, fakeSlot]);
-		fakeBoard.slots.push([fakeSlot, fakeSlot]);
-		assert.expect(4);
-		var match = new cf.Match(fakeBoard);
+		fakeBoard.clear = function () {
+			assert.ok(true);
+		}
+		var match = new cf.Match();
+		assert.expect(1);
+		match.start(fakeBoard);
 	});
 
 	test("Match will forward hasWinner call to board", function(assert) {
 		var match = new cf.Match(fakeBoard);
 		fakeBoard.hasWinner = function() { return true; };
+		match.start(fakeBoard);
 		assert.strictEqual(match.hasWinner(), true);
 	});
 
 	test("Match will forward getWinner call to board", function(assert) {
 		var match = new cf.Match(fakeBoard);
 		fakeBoard.getWinner = function() { return match.player1; };
+		match.start(fakeBoard);
 		assert.strictEqual(match.getWinner(), match.player1);
 	});
 

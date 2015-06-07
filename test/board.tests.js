@@ -152,4 +152,11 @@
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 	});
 
+	test("Board can be cleared", function(assert) {
+		var board = new cf.Board();
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
+		board.clear();
+		assert.strictEqual(board.slots[0][0].isEmpty(), true);
+	});
+
 }(ConnectFour, QUnit.test));

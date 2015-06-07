@@ -3,11 +3,14 @@ window.ConnectFour = { };
 document.addEventListener("DOMContentLoaded", function() {
 	(function(cf) {
 		var board = new cf.Board(),
-			match = new cf.Match(board),
+			match = new cf.Match(),
 			tableHead = document.getElementById('board-head'),
 			tableBody = document.getElementById('board-body'),
 			winnerElement = document.getElementById("winner"),
+			messageElement = document.getElementById("message"),
 			slotToElementMap = {};
+
+		match.start(board);
 
 		function doMove(eventArgs) {
 			var col = eventArgs.srcElement.dataset.col;
@@ -24,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (!!winner) {
 				winnerElement.style.display = "inline-block";
 				winnerElement.className = winner.isFirstPlayer ? "player-one" : "player-two";
-				winnerElement.innerHTML = "WINNER: " + winner.name + "!";
+				messageElement.innerHTML = "WINNER: " + winner.name + "!";
 			} else {
 				winnerElement.style.display = "none";
 			}
@@ -96,8 +99,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		// TODO: Replace this rudimentary data-binding code with something else.
 		document.getElementById("restart").addEventListener("click", function() {
-			match = new cf.Match(board);
+			match = new cf.Match();
+			match.start(board);
 			redrawState();
+		}, false);
+
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("startNewMatch").addEventListener("click", function() {
+			match = new cf.Match(board);
+			match.start(board);
+			redrawState();
+		}, false);
+
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("saveLatestMatch").addEventListener("click", function() {
+			
 		}, false);
 
 		redrawBoard();

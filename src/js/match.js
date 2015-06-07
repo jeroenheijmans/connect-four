@@ -1,18 +1,13 @@
 (function (cf) {
-	cf.Match = function(board) {
+	cf.Match = function() {
 		var self = this,
 			redoStack = [],
-			undoStack = [];
+			undoStack = [],
+			board = null;
 
 		self.player1 = new cf.Player("Player 1", true);
 		self.player2 = new cf.Player("Player 2", false);
 		self.currentPlayer = self.player1;
-
-		for (var r = 0; r < board.slots.length; r++){
-			for (var c = 0; c < board.slots[r].length; c++) {
-				board.slots[r][c].clear();
-			}
-		}
 
 		function switchPlayer() {
 			if (self.currentPlayer === self.player1) {
@@ -20,6 +15,11 @@
 			} else {
 				self.currentPlayer = self.player1;
 			}
+		}
+
+		self.start = function(theBoard) {
+			board = theBoard;
+			board.clear();
 		}
 
 		self.getMoves = function() {
@@ -55,6 +55,10 @@
 			var move = undoStack.pop();
 			move.undo(board);
 			redoStack.push(move);
+		};
+
+		self.loadMovesOnRedoStack = function(moveList) {
+			redoStack = moveList;
 		};
 
 		self.hasWinner = function() {
