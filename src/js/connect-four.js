@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return r.toString() + ";" + c.toString();
 		}
 
-		function redrawBoard(board) {
+		function redrawBoard() {
 			tableBody.innerHTML = "";
 
 			for (var r = 0; r < board.height; r++) {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			tableHead.appendChild(tr);
 		}
 
-		function redrawSlots(board) {
+		function redrawSlots() {
 			for (var r = 0; r < board.height; r++) {
 				for (var c = 0; c < board.width; c++) {
 					var td = slotToElementMap[getKey(r,c)];
@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 
-		redrawBoard(board);
-		redrawSlots(board);
+		redrawBoard();
+		redrawSlots();
 
 	}(window.ConnectFour))
 });
