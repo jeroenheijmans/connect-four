@@ -20,5 +20,9 @@
 				}
 			}			
 		}
+
+		self.getCoordinates = function() {
+			return [colIndex, rowIndex];
+		}
 	};
 }(ConnectFour || {}));

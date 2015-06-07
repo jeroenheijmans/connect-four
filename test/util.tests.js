@@ -1,5 +1,5 @@
 (function (cf, test) {
-	var yellow, red;
+	var yellow, red, fakeMatch, fakeMove;
 
 	// Helper function to generate slots:
 	function getFakeSlot(player) {
@@ -18,6 +18,28 @@
 		beforeEach: function() {
 			yellow = { name: 'Player 1 (yellow)' };
 			red = { name: 'Player 2 (red)' };
+
+			fakeMove = {
+				row: 0,
+				col: 0
+			};
+
+			fakeMove.getCoordinates = function() {
+				return [fakeMove.row, fakeMove.col];
+			};
+			
+			fakeMatch = {
+				fakeMoveList: [],
+				fakeHasWinner: false
+			};
+
+			fakeMatch.getMoves = function() { 
+				return fakeMatch.fakeMoveList; 
+			};
+
+			fakeMatch.hasWinner = function() {
+				return fakeMatch.fakeHasWinner;
+			};
 		}
 	});
 
@@ -68,6 +90,49 @@
 		var ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
 		assertRangeIsOk(assert, ranges[0], yellow, 1);
+	});
+
+	test("exportMatch returns object", function(assert) {
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.notStrictEqual(result, null);
+		assert.strictEqual(typeof result, 'object');
+	});
+
+	test("exportMatch returns object with hasWinner info", function(assert) {
+		// True, this specs that we should have redundant info
+		// inside an exported match (because you can also determine
+		// a winner by replaying an export), but I'd say it's 
+		// useful in the export as static info as well.
+		fakeMatch.fakeHasWinner = true;
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.strictEqual(result.hasWinner, true);
+	});
+
+	test("exportMatch returns empty move list for default match", function(assert) {
+		fakeMatch.fakeMoveList = [];
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.deepEqual(result.moves, []);
+	});
+
+	test("exportMatch returns single item move list for match with one move", function(assert) {
+		fakeMatch.fakeMoveList = [fakeMove];
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.strictEqual(result.moves.length, 1);
+	});
+
+	test("exportMatch returns two item move list for match with two moves", function(assert) {
+		fakeMatch.fakeMoveList = [fakeMove, fakeMove];
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.strictEqual(result.moves.length, 2);
+	});
+
+	test("exportMatch will export moves as coordinates", function(assert) {
+		fakeMove.row = 3;
+		fakeMove.col = 4;
+		fakeMatch.fakeMoveList = [fakeMove];
+		var result = cf.Util.exportMatch(fakeMatch);
+		assert.strictEqual(result.moves[0][0], 3);
+		assert.strictEqual(result.moves[0][1], 4);
 	});
 
 

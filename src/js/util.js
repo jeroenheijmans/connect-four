@@ -22,6 +22,15 @@
 		    }
 		    
 		    return ranges;
+		},
+
+		exportMatch: function(match) {
+			return {
+				moves: match.getMoves().map(function(m) {
+					return m.getCoordinates();
+				}),
+				hasWinner: match.hasWinner()
+			};
 		}
 	};
 }(ConnectFour || {}));

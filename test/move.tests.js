@@ -75,4 +75,10 @@
 		move.undo(fakeBoard);
 	});
 
+	test("Move can be exported as coordinages", function(assert) {
+		var move = new cf.Move(0, fakeYellowPlayer);
+		move.redo(fakeBoard);
+		assert.deepEqual(move.getCoordinates(), [0,0]);
+	});
+
 }(ConnectFour, QUnit.test));
