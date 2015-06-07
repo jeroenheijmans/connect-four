@@ -44,17 +44,17 @@
 		};
 
 		self.redo = function() {
+			switchPlayer();
 			var move = redoStack.pop();
 			move.redo(board);
 			undoStack.push(move);
-			switchPlayer();
 		};
 
 		self.undo = function() {
+			switchPlayer();
 			var move = undoStack.pop();
 			move.undo(board);
 			redoStack.push(move);
-			switchPlayer();
 		};
 
 		self.hasWinner = function() {

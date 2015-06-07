@@ -125,4 +125,23 @@
 		assert.strictEqual(match.getWinner(), match.player1);
 	});
 
+	test("Undo should switch players before actually undoing", function(assert){
+		var match = new cf.Match(fakeBoard);
+		match.doMove(fakeMove);
+		fakeMove.undo = function() {
+			assert.strictEqual(match.currentPlayer.isFirstPlayer, true, "Current player should've already switched back when move is being undone");
+		}
+		match.undo();
+	});
+
+	test("Redo should switch players before actually redoing", function(assert){
+		var match = new cf.Match(fakeBoard);
+		match.doMove(fakeMove);
+		match.undo();
+		fakeMove.redo = function() {
+			assert.strictEqual(match.currentPlayer.isFirstPlayer, false, "Current player should've already switched back when move is being undone");
+		}
+		match.redo();
+	});
+
 }(ConnectFour, QUnit.test));
