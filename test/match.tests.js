@@ -148,4 +148,14 @@
 		match.redo();
 	});
 
+	test("Loading on redo stack will use order correctly", function(assert) {
+		var match = new cf.Match(fakeBoard),
+			fakeMove1 = { redo: function() { assert.ok(true); } },
+			fakeMove2 = { };
+
+		match.loadMovesOnRedoStack([fakeMove1, fakeMove2]);
+		assert.expect(1);
+		match.redo();
+	});
+
 }(ConnectFour, QUnit.test));

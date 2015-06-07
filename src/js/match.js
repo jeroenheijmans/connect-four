@@ -58,7 +58,10 @@
 		};
 
 		self.loadMovesOnRedoStack = function(moveList) {
-			redoStack = moveList;
+			// The moveList will have the first move at position 0,
+			// with subsequent moves after that. The stack works
+			// in reverse though, so we should reverse the list.
+			redoStack = moveList.slice(0).reverse();
 		};
 
 		self.hasWinner = function() {
