@@ -75,5 +75,16 @@
 			var winningRanges = findWinningRanges();
 			return winningRanges.length > 0;
 		};
+
+		self.getWinner = function() {
+			var winningRanges = findWinningRanges();
+
+			if (winningRanges.length === 0) {
+				return null;
+			}
+
+			// Doesn't handle multiple winners very well though...
+			return winningRanges[0].player; 
+		};
 	};
 }(ConnectFour || {}));

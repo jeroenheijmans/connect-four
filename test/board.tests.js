@@ -90,4 +90,18 @@
 		assert.strictEqual(board.hasWinner(), false);
 	});
 
+	test("Can retrieve winner", function(assert) {
+		var board = new cf.Board();
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
+		board.slots[0][1].setPlayer(fakeYellowPlayer);
+		board.slots[0][2].setPlayer(fakeYellowPlayer);
+		board.slots[0][3].setPlayer(fakeYellowPlayer);
+		assert.strictEqual(board.getWinner(), fakeYellowPlayer);
+	});
+
+	test("Retrieving winner returns null if there's no winner", function(assert) {
+		var board = new cf.Board();
+		assert.strictEqual(board.getWinner(), null);
+	});
+
 }(ConnectFour, QUnit.test));

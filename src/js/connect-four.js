@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			match = new cf.Match(board),
 			tableHead = document.getElementById('board-head'),
 			tableBody = document.getElementById('board-body'),
+			winnerElement = document.getElementById("winner");
 			slotToElementMap = {};
 
 		function doMove(eventArgs) {
@@ -63,6 +64,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 
 			document.body.className = match.currentPlayer.isFirstPlayer ? "player-one" : "player-two";
+
+			var winner = match.getWinner();
+			if (!!winner) {
+				winnerElement.style.display = "inline-block";
+				winnerElement.className = winner.isFirstPlayer ? "player-one" : "player-two";
+				winnerElement.innerHTML = "WINNER: " + winner.name + "!";
+			} else {
+				winnerElement.style.display = "none";
+			}
 		}
 
 		// TODO: Replace this rudimentary data-binding code with something else.

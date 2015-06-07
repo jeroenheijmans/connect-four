@@ -112,4 +112,16 @@
 		var match = new cf.Match(fakeBoard);
 	});
 
+	test("Match will forward hasWinner call to board", function(assert) {
+		var match = new cf.Match(fakeBoard);
+		fakeBoard.hasWinner = function() { return true; }
+		assert.strictEqual(match.hasWinner(), true);
+	});
+
+	test("Match will forward getWinner call to board", function(assert) {
+		var match = new cf.Match(fakeBoard);
+		fakeBoard.getWinner = function() { return match.player1; }
+		assert.strictEqual(match.getWinner(), match.player1);
+	});
+
 }(ConnectFour, QUnit.test));

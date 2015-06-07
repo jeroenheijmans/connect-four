@@ -50,5 +50,13 @@
 			redoStack.push(move);
 			switchPlayer();
 		}
+
+		self.hasWinner = function() {
+			return board.hasWinner();
+		}
+
+		self.getWinner = function() {
+			return board.getWinner();
+		}
 	};
 }(ConnectFour || {}));
