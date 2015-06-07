@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			match = new cf.Match(board),
 			tableHead = document.getElementById('board-head'),
 			tableBody = document.getElementById('board-body'),
-			winnerElement = document.getElementById("winner");
+			winnerElement = document.getElementById("winner"),
 			slotToElementMap = {};
 
 		function doMove(eventArgs) {
@@ -21,11 +21,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		function redrawBoard() {
+			var tr, r, c;
+
 			tableBody.innerHTML = "";
 
-			for (var r = 0; r < board.height; r++) {
-				var tr = document.createElement("tr");
-				for (var c = 0; c < board.width; c++) {
+			for (r = 0; r < board.height; r++) {
+				tr = document.createElement("tr");
+				for (c = 0; c < board.width; c++) {
 					var td = document.createElement("td");
 					var slot = document.createElement("div");
 					slot.className = "slot";
@@ -36,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				tableBody.insertBefore(tr, tableBody.firstChild);
 			}
 
-			var tr = document.createElement("tr");
-			for (var c = 0; c < board.width; c++) {
+			tr = document.createElement("tr");
+			for (c = 0; c < board.width; c++) {
 				var th = document.createElement("th");
 				var btn = document.createElement("button");
 				btn.className = "do-move";
@@ -76,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		// TODO: Replace this rudimentary data-binding code with something else.
-		document.getElementById("undo").addEventListener("click", function(eventArgs) {
+		document.getElementById("undo").addEventListener("click", function() {
 			if (match.canUndo()) {
 				match.undo();
 				redrawState();
@@ -84,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}, false);
 
 		// TODO: Replace this rudimentary data-binding code with something else.
-		document.getElementById("redo").addEventListener("click", function(eventArgs) {
+		document.getElementById("redo").addEventListener("click", function() {
 			if (match.canRedo()) {
 				match.redo();
 				redrawState();
@@ -92,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}, false);
 
 		// TODO: Replace this rudimentary data-binding code with something else.
-		document.getElementById("restart").addEventListener("click", function(eventArgs) {
+		document.getElementById("restart").addEventListener("click", function() {
 			match = new cf.Match(board);
 			redrawState();
 		}, false);
@@ -100,5 +102,5 @@ document.addEventListener("DOMContentLoaded", function() {
 		redrawBoard();
 		redrawState();
 
-	}(window.ConnectFour))
+	}(window.ConnectFour));
 });

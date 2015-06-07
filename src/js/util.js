@@ -3,15 +3,16 @@
 		findRanges: function(lineOfSlots) {
 		    if (lineOfSlots.length === 0) { return []; }
 		    
-		    var previousPlayer = currentPlayer = lineOfSlots[0].getPlayer();
-			var ranges = [];
+		    var previousPlayer = lineOfSlots[0].getPlayer(),
+		    	currentPlayer = previousPlayer,
+				ranges = [];
 
 		   	if (!!currentPlayer) {
 			    ranges.push(new cf.Range(1, currentPlayer));
 			}
 		    
 		    for (var i = 1; i < lineOfSlots.length; i++) {
-		    	var currentPlayer = lineOfSlots[i].getPlayer();
+		    	currentPlayer = lineOfSlots[i].getPlayer();
 
 		        if (!!currentPlayer && previousPlayer === currentPlayer) {
 		            ranges[ranges.length - 1].rangeLength++;

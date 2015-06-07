@@ -47,8 +47,8 @@
 
 	test("Move will redo on correct slot", function(assert){
 		var move = new cf.Move(1, fakeYellowPlayer);
-		fakeBoard.slots[0][1].isEmpty = function() { return false; }
-		fakeBoard.slots[1][1].setPlayer = function(player) {
+		fakeBoard.slots[0][1].isEmpty = function() { return false; };
+		fakeBoard.slots[1][1].setPlayer = function(_) {
 			assert.ok(true, "Redo should call setPlayer on slot [1,1]");
 		};
 		assert.expect(1);

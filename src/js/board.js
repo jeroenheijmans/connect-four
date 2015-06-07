@@ -17,7 +17,7 @@
 
 		self.getRows = function() {
 			return self.slots;
-		}
+		};
 
 		self.getColumns = function() {
 			var transposed = new Array(self.width);
@@ -30,7 +30,7 @@
 			}
 
 			return transposed;
-		}
+		};
 
 		self.getDiagonals = function() {
 			var diagonalLines = [], fromRowIndex, fromColIndex, x, y;
@@ -51,7 +51,7 @@
 				} else {
 					fromRowIndex--;
 				}
-			} while (fromColIndex < self.width)
+			} while (fromColIndex < self.width);
 
 			// MINUS 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
 			fromRowIndex = self.height - 1;
@@ -69,11 +69,11 @@
 				} else {
 					fromRowIndex--;
 				}
-			} while (fromColIndex >= 0)
+			} while (fromColIndex >= 0);
 
 
 			return diagonalLines;
-		}
+		};
 
 		function findWinningRanges() {
 			var winningRanges = [], 
