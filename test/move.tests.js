@@ -81,4 +81,10 @@
 		assert.deepEqual(move.getCoordinates(), [0,0]);
 	});
 
+	test("Will fail early if colIndex is not provided", function(assert) {
+		assert.throws(function() {
+			var move = new cf.Move();
+		});
+	});
+
 }(ConnectFour, QUnit.test));

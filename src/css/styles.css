@@ -115,3 +115,29 @@
 #winner.player-two {
 	background-color: rgba(255,242,193,1.0);
 }
+
+#recentMatchesContainer {
+	margin-top: 20px;
+}
+
+#recentMatchesList {
+	width: 300px;
+	height: 150px;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	padding: 0;
+    margin: 5px auto;
+}
+
+#recentMatchesList li {
+	list-style: none;
+	padding: 5px;
+	text-align: center;
+	background-color: #eee;
+	border: 2px solid #fff;
+	cursor: pointer;
+}
+
+#recentMatchesList li:hover {
+	background-color: #ccc;
+}

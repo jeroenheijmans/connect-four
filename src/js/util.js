@@ -45,7 +45,7 @@
 				// determine that whenever (re)doing it?
 				player = i % 2 === 0 ? match.player1 : match.player2;
 
-				moves.push(new cf.Move(matchData.moves[1], player));
+				moves.push(new cf.Move(matchData.moves[i][1], player));
 			}
 
 			match.loadMovesOnRedoStack(moves);

@@ -3,6 +3,10 @@
 		var self = this,
 			rowIndex = null;
 
+		if (typeof colIndex === "undefined") {
+			throw "Move constructor function requires colIndex";
+		}
+
 		self.undo = function(board) {
 			if (rowIndex === null) {
 				throw new Error("Move redo has to be called before undo may be called");

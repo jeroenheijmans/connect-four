@@ -4,10 +4,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	(function(cf) {
 		var board = new cf.Board(),
 			match = new cf.Match(),
+			repository = new cf.MatchRepository(),
 			tableHead = document.getElementById('board-head'),
 			tableBody = document.getElementById('board-body'),
 			winnerElement = document.getElementById("winner"),
 			messageElement = document.getElementById("message"),
+			replaysListElement = document.getElementById("recentMatchesList"),
 			slotToElementMap = {};
 
 		match.start(board);
@@ -134,6 +136,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			checkWinner();
 		});
+
+		function startReplay(eventArgs) {
+			var timestamp = eventArgs.srcElement.dataset.matchTimestamp;
+			match = repository.findByTimestamp(timestamp)[0];
+
+			match.start(board);
+
+			function delayedMove() {
+				if (match.canRedo()) {
+					match.redo();
+					setTimeout(function() {
+						delayedMove();
+					}, 500);
+				}
+			}
+
+			delayedMove();
+		}
+
+		var headers = repository.getMatchHeaders();
+
+		for (var i = 0; i < headers.length; i++) {
+			var li = document.createElement("li");
+			li.innerHTML = (new Date(headers[i].timestamp)).toLocaleString();
+			li.dataset.matchTimestamp = headers[i].timestamp;
+			li.addEventListener("click", startReplay, false);
+			replaysListElement.insertBefore(li, replaysListElement.firstChild);
+		}
 
 	}(window.ConnectFour));
 });
