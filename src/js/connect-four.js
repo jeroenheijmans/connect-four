@@ -13,11 +13,21 @@ document.addEventListener("DOMContentLoaded", function() {
 			var col = eventArgs.srcElement.dataset.col;
 			var move = new cf.Move(col, match.currentPlayer);
 			match.doMove(move);
-			redrawState(board);
 		}
 
 		function getKey(r, c) {
 			return r.toString() + ";" + c.toString();
+		}
+
+		function checkWinner() {
+			var winner = match.getWinner();
+			if (!!winner) {
+				winnerElement.style.display = "inline-block";
+				winnerElement.className = winner.isFirstPlayer ? "player-one" : "player-two";
+				winnerElement.innerHTML = "WINNER: " + winner.name + "!";
+			} else {
+				winnerElement.style.display = "none";
+			}
 		}
 
 		function redrawBoard() {
@@ -67,21 +77,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			document.body.className = match.currentPlayer.isFirstPlayer ? "player-one" : "player-two";
 
-			var winner = match.getWinner();
-			if (!!winner) {
-				winnerElement.style.display = "inline-block";
-				winnerElement.className = winner.isFirstPlayer ? "player-one" : "player-two";
-				winnerElement.innerHTML = "WINNER: " + winner.name + "!";
-			} else {
-				winnerElement.style.display = "none";
-			}
+			checkWinner();
 		}
 
 		// TODO: Replace this rudimentary data-binding code with something else.
 		document.getElementById("undo").addEventListener("click", function() {
 			if (match.canUndo()) {
 				match.undo();
-				redrawState();
 			}
 		}, false);
 
@@ -89,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		document.getElementById("redo").addEventListener("click", function() {
 			if (match.canRedo()) {
 				match.redo();
-				redrawState();
 			}
 		}, false);
 
@@ -101,6 +102,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		redrawBoard();
 		redrawState();
+
+		board.addBoardChangeEventHandler(function(eventArgs) {
+			var key = getKey(eventArgs.slot.getRowIndex(), eventArgs.slot.getColIndex()),
+				td = slotToElementMap[key],
+				player = eventArgs.slot.getPlayer();
+
+			if (!!player) {
+				td.className = player.isFirstPlayer ? "player-one" : "player-two";
+			} else {
+				td.className = "empty";
+			}
+
+			document.body.className = match.currentPlayer.isFirstPlayer ? "player-one" : "player-two";
+
+			checkWinner();
+		});
 
 	}(window.ConnectFour));
 });

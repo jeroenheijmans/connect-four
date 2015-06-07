@@ -37,10 +37,10 @@
 		};
 
 		self.doMove = function(move) {
-			undoStack.push(move);
-			move.redo(board);
-			redoStack.length = 0;
 			switchPlayer();
+			undoStack.push(move);
+			redoStack.length = 0;
+			move.redo(board);
 		};
 
 		self.redo = function() {

@@ -112,6 +112,7 @@
 		// Particular scenario found while testing
 		var board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
+		// Leave a "gap" between coloumn 0 and 2...
 		board.slots[0][2].setPlayer(fakeYellowPlayer);
 		board.slots[0][3].setPlayer(fakeYellowPlayer);
 		board.slots[0][4].setPlayer(fakeYellowPlayer);
@@ -121,6 +122,34 @@
 	test("Retrieving winner returns null if there's no winner", function(assert) {
 		var board = new cf.Board();
 		assert.strictEqual(board.getWinner(), null);
+	});
+
+	test("Board will subscribe to slot change events and notify its subscribers", function(assert) {
+		var board = new cf.Board();
+		board.addBoardChangeEventHandler(function(_) { 
+			assert.ok(true);
+		});
+		assert.expect(1);
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
+	});
+
+	test("Board will notify subscribers with sender (slot)", function(assert) {
+		var board = new cf.Board();
+		board.addBoardChangeEventHandler(function(eventArgs) { 
+			assert.strictEqual(eventArgs.slot, board.slots[0][0]);
+		});
+		assert.expect(1);
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
+	});
+
+	test("Board will notify subscribers with coordinates", function(assert) {
+		var board = new cf.Board();
+		board.addBoardChangeEventHandler(function(eventArgs) {
+			assert.strictEqual(eventArgs.slot.getRowIndex(), 0);
+			assert.strictEqual(eventArgs.slot.getColIndex(), 0);
+		});
+		assert.expect(2);
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
 	});
 
 }(ConnectFour, QUnit.test));

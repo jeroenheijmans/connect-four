@@ -1,7 +1,25 @@
 (function (cf) {
-	cf.Slot = function() {
+	cf.Slot = function(rowIndex, colIndex) {
 		var self = this,
-			takenByPlayer = null;
+			takenByPlayer = null,
+			stateChangeEventHandlers = [];
+
+		function notifyStateChangeSubscribers(){
+			stateChangeEventHandlers.forEach(function(handler) {
+				if (!!handler) {
+					handler({
+						slot: self
+					});
+				}
+			});
+		}
+
+		self.getRowIndex = function() { return rowIndex; }
+		self.getColIndex = function() { return colIndex; }
+
+		self.addChangeEventHandler = function(handler) {
+			stateChangeEventHandlers.push(handler);
+		};
 
 		self.getPlayer = function() {
 			return takenByPlayer;
@@ -12,11 +30,21 @@
 		};
 
 		self.setPlayer = function(player) {
+			if (takenByPlayer === player) {
+				return;
+			}
+
 			takenByPlayer = player;
+			notifyStateChangeSubscribers();
 		};
 
 		self.clear = function() {
+			if (self.isEmpty()) {
+				return;
+			}
+
 			takenByPlayer = null;
+			notifyStateChangeSubscribers();
 		};
 	};
 }(ConnectFour || {}));

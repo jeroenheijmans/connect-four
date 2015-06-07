@@ -1,6 +1,15 @@
 (function (cf) {
 	cf.Board = function() {
-		var self = this;
+		var self = this,
+			stateChangeEventHandlers = [];
+
+		function notifyStateChangeSubscribers(eventArgs) {
+			stateChangeEventHandlers.forEach(function(handler) {
+				if (!!handler) {
+					handler(eventArgs);
+				}
+			});
+		}
 
 		self.width = 7;
 		self.height = 6;
@@ -11,9 +20,19 @@
 			self.slots[r] = [];
 
 			for (var c = 0; c < self.width; c++) {
-				self.slots[r][c] = new cf.Slot();
+				self.slots[r][c] = new cf.Slot(r, c);
+
+				self.slots[r][c].addChangeEventHandler(notifyStateChangeSubscribers);
 			}
 		}
+
+		self.addBoardChangeEventHandler = function(handler) {
+			stateChangeEventHandlers.push(handler);
+		};
+
+		self.slotStateChangeEventHandler = function(eventArgs) {
+			notifyStateChangeSubscribers(eventArgs);
+		};
 
 		self.getRows = function() {
 			return self.slots;
