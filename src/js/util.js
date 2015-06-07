@@ -17,9 +17,10 @@
 		        if (!!currentPlayer && previousPlayer === currentPlayer) {
 		            ranges[ranges.length - 1].rangeLength++;
 		        } else if (!!currentPlayer) {
-		            previousPlayer = currentPlayer;
 		            ranges.push(new cf.Range(1, currentPlayer));
 		        }
+
+		        previousPlayer = currentPlayer;
 		    }
 		    
 		    return ranges;

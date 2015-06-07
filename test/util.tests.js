@@ -92,6 +92,12 @@
 		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
+	test("findRanges will not concat ranges seperated by null", function(assert) {
+		var lineOfSlots = [getFakeSlot(yellow), getFakeSlot(null), getFakeSlot(yellow)];
+		var ranges = cf.Util.findRanges(lineOfSlots);
+		assert.strictEqual(ranges.length, 2);
+	});
+
 	test("exportMatch returns object", function(assert) {
 		var result = cf.Util.exportMatch(fakeMatch);
 		assert.notStrictEqual(result, null);

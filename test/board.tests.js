@@ -23,7 +23,7 @@
 
 	test("Default board should be empty", function(assert) {
 		var board = new cf.Board();
-		assert.expect(defaultBoardWidth * defaultBoardHeight)
+		assert.expect(defaultBoardWidth * defaultBoardHeight);
 		board.slots.forEach(function(row) {
 			row.forEach(function(slot) {
 				assert.strictEqual(slot.isEmpty(), true);
@@ -106,6 +106,16 @@
 		board.slots[0][2].setPlayer(fakeYellowPlayer);
 		board.slots[0][3].setPlayer(fakeYellowPlayer);
 		assert.strictEqual(board.getWinner(), fakeYellowPlayer);
+	});
+
+	test("Will not have incorrect winner (regression 1)", function (assert) {
+		// Particular scenario found while testing
+		var board = new cf.Board();
+		board.slots[0][0].setPlayer(fakeYellowPlayer);
+		board.slots[0][2].setPlayer(fakeYellowPlayer);
+		board.slots[0][3].setPlayer(fakeYellowPlayer);
+		board.slots[0][4].setPlayer(fakeYellowPlayer);
+		assert.strictEqual(board.hasWinner(), false);
 	});
 
 	test("Retrieving winner returns null if there's no winner", function(assert) {
