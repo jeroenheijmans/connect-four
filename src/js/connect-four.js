@@ -3,9 +3,6 @@ window.ConnectFour = { };
 document.addEventListener("DOMContentLoaded", function() {
 	(function(cf) {
 		var board = new cf.Board(),
-			player1 = new cf.Player("Player 1", true),
-			player2 = new cf.Player("Player 2"),
-			currentPlayer = player1, // TODO: move this to business logic
 			match = new cf.Match(board),
 			tableHead = document.getElementById('board-head'),
 			tableBody = document.getElementById('board-body'),
@@ -13,8 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		function doMove(eventArgs) {
 			var col = eventArgs.srcElement.dataset.col;
-			var move = new cf.Move(col, currentPlayer);
-			currentPlayer = currentPlayer === player1 ? player2 : player1;
+			var move = new cf.Move(col, match.currentPlayer);
 			match.doMove(move);
 			redrawSlots(board);
 		}
