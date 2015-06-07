@@ -33,23 +33,44 @@
 		}
 
 		self.getDiagonals = function() {
-			var diagonalLines = [],
-				r = self.height,
-				c = 0;
+			var diagonalLines = [], fromRowIndex, fromColIndex, x, y;
 
-			while (r > 0 || c < self.width) {
-				if (r > 0) { 
-					r--;
-				} else {
-					c++;
-				}
+			// 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
+			fromRowIndex = self.height - 1;
+			fromColIndex = 0;
 
+			do {
 				diagonalLines.push([]);
 
-				for (var x = r, y = c; x < self.height && y < self.width; x++, y++) {
-					diagonalLines[diagonalLines.length - 1].push(self.slots[x][y]);
+				for (x = fromColIndex, y = fromRowIndex; x < self.width && y < self.height; x++, y++) {
+					diagonalLines[diagonalLines.length - 1].push(self.slots[y][x]);
 				}
-			}
+
+				if (fromRowIndex === 0) {
+					fromColIndex++;
+				} else {
+					fromRowIndex--;
+				}
+			} while (fromColIndex < self.width)
+
+			// MINUS 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
+			fromRowIndex = self.height - 1;
+			fromColIndex = self.width - 1;
+
+			do {
+				diagonalLines.push([]);
+
+				for (x = fromColIndex, y = fromRowIndex; x >= 0 && y < self.height; x--, y++) {
+					diagonalLines[diagonalLines.length - 1].push(self.slots[y][x]);
+				}
+
+				if (fromRowIndex === 0) {
+					fromColIndex--;
+				} else {
+					fromRowIndex--;
+				}
+			} while (fromColIndex >= 0)
+
 
 			return diagonalLines;
 		}

@@ -63,12 +63,21 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Can see winner for diagonal four-in-a-row", function(assert) {
+	test("Can see winner for 45deg diagonal four-in-a-row", function(assert) {
 		var board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[1][1].setPlayer(fakeYellowPlayer);
 		board.slots[2][2].setPlayer(fakeYellowPlayer);
 		board.slots[3][3].setPlayer(fakeYellowPlayer);
+		assert.strictEqual(board.hasWinner(), true);
+	});
+
+	test("Can see winner for -45deg diagonal four-in-a-row", function(assert) {
+		var board = new cf.Board();
+		board.slots[3][0].setPlayer(fakeYellowPlayer);
+		board.slots[2][1].setPlayer(fakeYellowPlayer);
+		board.slots[1][2].setPlayer(fakeYellowPlayer);
+		board.slots[0][3].setPlayer(fakeYellowPlayer);
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
