@@ -8,6 +8,12 @@
 		self.player2 = new cf.Player("Player 2", false);
 		self.currentPlayer = self.player1;
 
+		for (var r = 0; r < board.slots.length; r++){
+			for (var c = 0; c < board.slots[r].length; c++) {
+				board.slots[r][c].clear();
+			}
+		}
+
 		function switchPlayer() {
 			if (self.currentPlayer === self.player1) {
 				self.currentPlayer = self.player2;

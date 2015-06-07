@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			var col = eventArgs.srcElement.dataset.col;
 			var move = new cf.Move(col, match.currentPlayer);
 			match.doMove(move);
-			redrawSlots(board);
+			redrawState(board);
 		}
 
 		function getKey(r, c) {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			tableHead.appendChild(tr);
 		}
 
-		function redrawSlots() {
+		function redrawState() {
 			for (var r = 0; r < board.height; r++) {
 				for (var c = 0; c < board.width; c++) {
 					var td = slotToElementMap[getKey(r,c)];
@@ -61,10 +61,34 @@ document.addEventListener("DOMContentLoaded", function() {
 					}
 				}
 			}
+
+			document.body.className = match.currentPlayer.isFirstPlayer ? "player-one" : "player-two";
 		}
 
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("undo").addEventListener("click", function(eventArgs) {
+			if (match.canUndo()) {
+				match.undo();
+				redrawState();
+			}
+		}, false);
+
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("redo").addEventListener("click", function(eventArgs) {
+			if (match.canRedo()) {
+				match.redo();
+				redrawState();
+			}
+		}, false);
+
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("restart").addEventListener("click", function(eventArgs) {
+			match = new cf.Match(board);
+			redrawState();
+		}, false);
+
 		redrawBoard();
-		redrawSlots();
+		redrawState();
 
 	}(window.ConnectFour))
 });

@@ -13,11 +13,17 @@
 .inner {
     margin-left: auto;
     margin-right: auto; 
-    width: /*whatever width you want*/;
+    text-align: center;
+}
+
+#controls {
+	display: inline-block;
+	margin-top: 10px;
 }
 
 #board {
-	margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 #board-body td {
@@ -55,4 +61,31 @@
 #board-head th {
 	padding: 5px;
 	vertical-align: middle;
+	position: relative;
+}
+
+#board-head th:before {
+	content: '';
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	position: absolute;
+	bottom: 40px;
+	left: 50%;
+	margin-left: -20px;
+	border-radius: 50%;
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+	opacity: 0.1;
+}
+
+.player-one #board-head th:before {
+	background-color: #c12424;
+}
+
+.player-two #board-head th:before {
+	background-color: #ffd819;	
+}
+
+#board-head th:hover:before {
+	opacity: 1;
 }
