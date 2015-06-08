@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		match.start(board);
 
 		function doMove(eventArgs) {
-			var col = eventArgs.target.dataset.col;
+			var col = eventArgs.target.getAttribute("col");
 			var move = new cf.Move(col, match.currentPlayer);
 			match.doMove(move);
 		}
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				var th = document.createElement("th");
 				var btn = document.createElement("button");
 				btn.className = "do-move";
-				btn.dataset.col = c;
+				btn.setAttribute("col", c);
 				btn.addEventListener("click", doMove, false);
 				th.appendChild(btn);
 				tr.appendChild(th);
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 
 		function startReplay(eventArgs) {
-			var timestamp = eventArgs.target.dataset.matchTimestamp;
+			var timestamp = eventArgs.target.getAttribute("matchTimestamp");
 			match = repository.findByTimestamp(timestamp)[0];
 
 			match.start(board);
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		function addReplayListItem(match) {
 			var li = document.createElement("li");
 			li.innerHTML = (new Date(match.timestamp)).toLocaleString();
-			li.dataset.matchTimestamp = match.timestamp;
+			li.setAttribute("matchTimestamp", match.timestamp);
 			li.addEventListener("click", startReplay, false);
 			replaysListElement.insertBefore(li, replaysListElement.firstChild);
 		}
