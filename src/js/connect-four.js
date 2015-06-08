@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		match.start(board);
 
 		function doMove(eventArgs) {
-			var col = eventArgs.srcElement.dataset.col;
+			var col = eventArgs.target.dataset.col;
 			var move = new cf.Move(col, match.currentPlayer);
 			match.doMove(move);
 		}
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 
 		function startReplay(eventArgs) {
-			var timestamp = eventArgs.srcElement.dataset.matchTimestamp;
+			var timestamp = eventArgs.target.dataset.matchTimestamp;
 			match = repository.findByTimestamp(timestamp)[0];
 
 			match.start(board);
