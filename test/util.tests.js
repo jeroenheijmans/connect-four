@@ -164,5 +164,19 @@
 		assert.strictEqual(match.canRedo(), true);
 	});
 
+	test("importMatch followed by exportMatch gives the same result", function(assert) {
+		var input = { moves: [[0,0],[0,1]], hasWinner: true };
+		var match = cf.Util.importMatch(input);
+		
+		// Tricky, because now this test doesn't test Util in isolation,
+		// but it also depends on a board (and to be honest, also on an
+		// actual match). But, it works, for now...
+		match.start(new cf.Board());
+		while (match.canRedo()) { match.redo(); }
+		
+		var output = cf.Util.exportMatch(match);
+		assert.deepEqual(output.moves, input.moves);
+	});
+
 
 }(ConnectFour, QUnit.test));
