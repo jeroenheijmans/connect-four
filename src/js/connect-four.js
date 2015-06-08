@@ -1,5 +1,9 @@
 window.ConnectFour = { };
 
+
+// TODO: This file has built up all into a nice string of spaghetti and requires some work!
+
+
 document.addEventListener("DOMContentLoaded", function() {
 	(function(cf) {
 		var board = new cf.Board(),
@@ -115,7 +119,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		// TODO: Replace this rudimentary data-binding code with something else.
 		document.getElementById("saveLatestMatch").addEventListener("click", function() {
-			
+			var data = repository.add(match);
+			addReplayListItem(data);
+		}, false);
+
+		// TODO: Replace this rudimentary data-binding code with something else.
+		document.getElementById("emptyRepository").addEventListener("click", function() {
+			repository.clear();
+			replaysListElement.innerHTML = "";
 		}, false);
 
 		redrawBoard();
@@ -155,15 +166,20 @@ document.addEventListener("DOMContentLoaded", function() {
 			delayedMove();
 		}
 
-		var headers = repository.getMatchHeaders();
-
-		for (var i = 0; i < headers.length; i++) {
+		function addReplayListItem(match) {
 			var li = document.createElement("li");
-			li.innerHTML = (new Date(headers[i].timestamp)).toLocaleString();
-			li.dataset.matchTimestamp = headers[i].timestamp;
+			li.innerHTML = (new Date(match.timestamp)).toLocaleString();
+			li.dataset.matchTimestamp = match.timestamp;
 			li.addEventListener("click", startReplay, false);
 			replaysListElement.insertBefore(li, replaysListElement.firstChild);
 		}
+
+		var headers = repository.getMatchHeaders();
+
+		for (var i = 0; i < headers.length; i++) {
+			addReplayListItem(headers[i]);
+		}
+
 
 	}(window.ConnectFour));
 });

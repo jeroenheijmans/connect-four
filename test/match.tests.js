@@ -158,4 +158,12 @@
 		match.redo();
 	});
 
+	test("Can getMoves after doing one move", function(assert) {
+		var match = new cf.Match(fakeBoard);
+		match.doMove(fakeMove);
+		var moves = match.getMoves();
+		assert.strictEqual(moves.length, 1);
+		assert.strictEqual(moves[0], fakeMove);
+	});
+
 }(ConnectFour, QUnit.test));

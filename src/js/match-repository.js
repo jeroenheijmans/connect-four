@@ -4,43 +4,52 @@
 	// or maybe localStorage to make things a wee bit more
 	// persistent.
 
-	var fakeList = [
-		{
-			moves: [[0,0], [0,1], [0,2]],
-			timestamp: 1433200405205,
-			hasWinner: true
-		},
-		{
-			moves: [[0,1], [0,2], [1,1], [0,4], [0,3], 
-					[1,4], [2,4], [0,5], [0,6], [1,5], 
-					[1,6]],
-			timestamp: 1433705617672,
-			hasWinner: true
-		}
-	];
+	var localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
 
-	var defaultDal = {
-		getAllMatches: function() {
-			return fakeList;
-		},
-		getMatchHeaders: function() {
+	var defaultDal = function() {
+		var self = this;
+
+		self.getAllMatches = function() {
+			var json = localStorage.getItem(localStorageKey);
+			var matches = [];
+			if (!!json) {
+				matches = JSON.parse(json);
+			}
+			return matches;
+		};
+
+		self.getMatchHeaders = function() {
 			// In this DAL, full objects can easily be used as
 			// headers, no need to make a more lightweight set
 			// of objects (this would probably cost more than
 			// what it would gain us...).
-			return fakeList;
-		},
-		findByTimestamp: function(timestamp) {
-			return fakeList.filter(function(m) {
+			return self.getAllMatches();
+		};
+
+		self.findByTimestamp = function(timestamp) {
+			return self.getAllMatches().filter(function(m) {
 				return m.timestamp === timestamp;
 			});
-		},
-		getLatestMatch: function() {
-			throw "Not implemented yet";
-		},
-		saveMatch: function(matchData) {
-			throw "Not implemented yet";
-		}
+		};
+
+		self.getLatestMatch = function() {
+			var matches = self.getAllMatches();
+			if (matches.length > 0) {
+				return matches[matches.length - 1];
+			}
+			return null;
+		};
+
+		self.saveMatch = function(matchData) {
+			var matches = self.getAllMatches();
+			matches.push(matchData);
+			var json = JSON.stringify(matches);
+			localStorage.setItem(localStorageKey, json);
+		};
+
+		self.clear = function() {
+			localStorage.clear();
+		};
 	};
 
 
@@ -51,11 +60,12 @@
 	cf.MatchRepository = function (dal) {
 		var self = this;
 
-		dal = dal || defaultDal;
+		dal = dal || new defaultDal();
 
 		self.add = function(match) {
 			var data = cf.Util.exportMatch(match);
 			dal.saveMatch(data);
+			return data;
 		};
 
 		self.getLatestMatch = function() {
@@ -78,6 +88,10 @@
 			return dal.findByTimestamp(timestamp).map(function(data) {
 				return cf.Util.importMatch(data);
 			});
+		};
+
+		self.clear = function() {
+			dal.clear();
 		};
 	}
 }(ConnectFour || {}));

@@ -25,7 +25,7 @@
 		self.getMoves = function() {
 			// Return a duplicate so the actual undo stack
 			// can not be modified by callers.
-			return self.undoStack.slice();
+			return undoStack.slice();
 		};
 
 		self.canRedo = function() {
