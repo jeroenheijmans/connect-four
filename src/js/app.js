@@ -1,36 +1,42 @@
-'use strict';
+window.ConnectFour = (function(cf) {
 
-// TODO: Started this slightly monolythic, need to 
-// seperate the concerns in different files.
+	'use strict';
 
-var app = angular.module('connectFourApp', []);
+	// TODO: Started this slightly monolythic, need to 
+	// seperate the concerns in different files.
 
-app.filter('toLocale', function() {
-	return function (stamp) {
-		return (new Date(stamp)).toLocaleString();
-	}
-});
+	var app = angular.module('connectFourApp', []);
 
-app.controller('RecentMatchesController', ['$scope', function($scope) {
-	var repository = new window.ConnectFour.MatchRepository(); // TODO: Use DI.
-
-	$scope.matchHeaders = repository.getMatchHeaders();
-
-	$scope.startReplay = function(matchHeader) {
-		var match = repository.findByTimestamp(matchHeader.timestamp)[0];
-		var board = window.ConnectFour.board; // TODO: Use DI.
-		
-		match.start(board);
-
-		function delayedMove() {
-			if (match.canRedo()) {
-				match.redo();
-				setTimeout(function() {
-					delayedMove();
-				}, 500);
-			}
+	app.filter('toLocale', function() {
+		return function (stamp) {
+			return (new Date(stamp)).toLocaleString();
 		}
+	});
 
-		delayedMove();
-	};
-}]);
+	app.controller('RecentMatchesController', ['$scope', function($scope) {
+		var repository = new cf.MatchRepository(); // TODO: Use DI.
+
+		$scope.matchHeaders = repository.getMatchHeaders();
+
+		$scope.startReplay = function(matchHeader) {
+			var match = repository.findByTimestamp(matchHeader.timestamp)[0];
+			var board = cf.board; // TODO: Use DI.
+			
+			match.start(board);
+
+			function delayedMove() {
+				if (match.canRedo()) {
+					match.redo();
+					setTimeout(function() {
+						delayedMove();
+					}, 500);
+				}
+			}
+
+			delayedMove();
+		};
+	}]);
+
+	return cf;
+	
+}(window.ConnectFour || {}));
