@@ -116,11 +116,11 @@
 	background-color: rgba(255,242,193,1.0);
 }
 
-#recentMatchesContainer {
+.recentMatchesContainer {
 	margin-top: 20px;
 }
 
-#recentMatchesList {
+.recentMatchesList {
 	width: 300px;
 	height: 150px;
 	border: 1px solid #ccc;
@@ -129,7 +129,7 @@
     margin: 5px auto;
 }
 
-#recentMatchesList li {
+.recentMatchesList li {
 	list-style: none;
 	padding: 5px;
 	text-align: center;
@@ -138,6 +138,6 @@
 	cursor: pointer;
 }
 
-#recentMatchesList li:hover {
+.recentMatchesList li:hover {
 	background-color: #ccc;
 }

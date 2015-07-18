@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			replaysListElement = document.getElementById("recentMatchesList"),
 			slotToElementMap = {};
 
+		// Export some locals for now so we can transition smoothly to
+		// using Angular.
+		cf.board = board;
+
 		match.start(board);
 
 		function doMove(eventArgs) {
@@ -147,38 +151,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			checkWinner();
 		});
-
-		function startReplay(eventArgs) {
-			var timestamp = eventArgs.target.getAttribute("matchTimestamp");
-			match = repository.findByTimestamp(timestamp)[0];
-
-			match.start(board);
-
-			function delayedMove() {
-				if (match.canRedo()) {
-					match.redo();
-					setTimeout(function() {
-						delayedMove();
-					}, 500);
-				}
-			}
-
-			delayedMove();
-		}
-
-		function addReplayListItem(match) {
-			var li = document.createElement("li");
-			li.innerHTML = (new Date(match.timestamp)).toLocaleString();
-			li.setAttribute("matchTimestamp", match.timestamp);
-			li.addEventListener("click", startReplay, false);
-			replaysListElement.insertBefore(li, replaysListElement.firstChild);
-		}
-
-		var headers = repository.getMatchHeaders();
-
-		for (var i = 0; i < headers.length; i++) {
-			addReplayListItem(headers[i]);
-		}
 
 
 	}(window.ConnectFour));

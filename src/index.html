@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="connectFourApp">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Connect Four</title>
 	<link rel="stylesheet" href="./lib/normalize.css">
 	<link rel="stylesheet" href="./css/styles.css">
+	<script src="./lib/angular.min.js"></script>
 </head>
 <body>
+
 	<div class="outer">
 	<div class="middle">
 	<div class="inner">
@@ -30,9 +32,12 @@
 			<button id="restart">★ New match</button>
 		</div>
 
-		<div id="recentMatchesContainer">
+		<div class="recentMatchesContainer" ng-controller="RecentMatchesController">
 			<strong>Choose replay:</strong>
-			<ul id="recentMatchesList">
+			<ul class="recentMatchesList">
+				<li ng-repeat="match in matchHeaders" ng-click="startReplay(match)">
+					{{match.timestamp | toLocale}}
+				</li>
 			</ul>
 			<button id="emptyRepository">Clear History</button>
 		</div>
@@ -41,6 +46,7 @@
 	</div>
 	</div>
 
+	<script src="./js/app.js"></script>
 	<script src="./js/connect-four.js"></script>
 	<script src="./js/util.js"></script>
 	<script src="./js/range.js"></script>
