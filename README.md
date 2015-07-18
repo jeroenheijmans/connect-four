@@ -1,5 +1,5 @@
 # Connect Four
-Connect Four is a small web applications where two players can play a simple version of the classic Connect-Four board game in a browser.
+Connect Four is A small web application where two players can play a simple version of the classic Connect-Four board game in a browser.
 
 *This code serves merely as a "**Hello World on Steroids**"*, allowing (sometimes public) experiments with open source libraries. The code itself (excepting any files in the /lib/ folders, which have their own licenses) is available under [the MIT license](LICENSE.md).
 
