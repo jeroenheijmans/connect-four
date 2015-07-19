@@ -8,28 +8,40 @@
 	<link rel="stylesheet" href="./css/styles.css">
 	<script src="./lib/angular.min.js"></script>
 </head>
-<body>
+<body ng-cloak ng-class="match.currentPlayer.isFirstPlayer ? 'player-one' : 'player-two'">
 
 	<div class="outer">
 	<div class="middle">
 	<div class="inner">
 
-		<div id="winner" style="display: none;">
-			<p id="message"></p>
-			<button id="saveLatestMatch">💾 Save Replay</button>
-			<button id="startNewMatch">★ New Match</button>
+		<div class="winner" ng-controller="VictoryController" ng-show="match.hasWinner()" ng-class="match.getWinner().isFirstPlayer ? 'player-one' : 'player-two'">
+			<p>WINNER: {{ match.getWinner().name }}!</p>
+			<button ng-click="saveReplay()">💾 Save Replay</button>
+			<button ng-click="startNewMatch()">★ New Match</button>
 		</div>
 
-		<table id="board">
-			<thead id="board-head"></thead>
-			<tbody id="board-body"></tbody>
+		<table class="board" ng-controller="BoardController">
+			<thead class="board-head">
+				<tr>
+					<th ng-repeat="slot in board.slots[0]">
+						<button class="do-move" ng-click="doMove(slot)"></button>
+					</th>
+				</tr>
+			</thead>
+			<tbody class="board-body">
+				<tr ng-repeat="row in rowsToDraw">
+					<td ng-repeat="slot in row" ng-class="getSlotCssClass(slot)">
+						<div class="slot"></div>
+					</td>
+				</tr>
+			</tbody>
 		</table>
 
-		<div id="controls">
-			<button id="undo">↶ undo</button>
-			<button id="redo">↷ redo</button>
+		<div class="controls" ng-controller="MatchControlsController">
+			<button ng-click="undo()">↶ undo</button>
+			<button ng-click="redo()">↷ redo</button>
 			&nbsp;&nbsp;
-			<button id="restart">★ New match</button>
+			<button ng-click="startNewMatch()">★ New match</button>
 		</div>
 
 		<div class="recentMatchesContainer" ng-controller="RecentMatchesController">
@@ -39,7 +51,7 @@
 					{{match.timestamp | toLocale}}
 				</li>
 			</ul>
-			<button id="emptyRepository">Clear History</button>
+			<button ng-click="clearHistory()">Clear History</button>
 		</div>
 
 	</div>
