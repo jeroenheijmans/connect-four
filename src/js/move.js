@@ -28,4 +28,4 @@
 			return [colIndex, rowIndex];
 		};
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

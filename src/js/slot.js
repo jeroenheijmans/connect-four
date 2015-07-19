@@ -47,4 +47,4 @@
 			notifyStateChangeSubscribers();
 		};
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

@@ -166,4 +166,4 @@
 		assert.strictEqual(moves[0], fakeMove);
 	});
 
-}(ConnectFour, QUnit.test));
+}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

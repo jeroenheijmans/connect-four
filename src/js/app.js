@@ -117,4 +117,4 @@ window.ConnectFour = (function(cf) {
 
 	return cf;
 	
-}(window.ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

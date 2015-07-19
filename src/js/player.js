@@ -5,4 +5,4 @@
 		self.name = name || "New player";
 		self.isFirstPlayer = !!isFirstPlayer;
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

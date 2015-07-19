@@ -87,4 +87,4 @@
 		});
 	});
 
-}(ConnectFour, QUnit.test));
+}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

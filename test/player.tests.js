@@ -11,4 +11,4 @@
 		var player = new cf.Player();
 		assert.ok(!!player.name);
 	});
-}(ConnectFour, QUnit.test));
+}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

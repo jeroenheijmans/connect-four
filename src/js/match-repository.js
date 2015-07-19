@@ -94,4 +94,4 @@
 			dal.clear();
 		};
 	}
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

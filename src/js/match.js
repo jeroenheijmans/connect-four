@@ -72,4 +72,4 @@
 			return board.getWinner();
 		};
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

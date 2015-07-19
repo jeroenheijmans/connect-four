@@ -101,4 +101,4 @@
 		assert.strictEqual(matches[0].canRedo(), true);
 	});
 
-}(ConnectFour, QUnit.test));
+}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

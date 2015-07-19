@@ -159,4 +159,4 @@
 		assert.strictEqual(board.slots[0][0].isEmpty(), true);
 	});
 
-}(ConnectFour, QUnit.test));
+}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

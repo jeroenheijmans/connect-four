@@ -135,4 +135,4 @@
 			return winningRanges[0].player; 
 		};
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

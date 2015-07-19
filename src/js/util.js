@@ -53,4 +53,4 @@
 			return match;
 		}
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));

@@ -10,4 +10,4 @@
 			return self.rangeLength >= minLengthToWin;
 		};
 	};
-}(ConnectFour || {}));
+}(window.ConnectFour = window.ConnectFour || {}));
