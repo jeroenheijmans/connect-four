@@ -1,5 +1,5 @@
 (function (cf, test) {
-	var fakeDal, fakeMatch;
+	var fakeDal, fakeMatch, $injector;
 
 	QUnit.module("MatchRepository", {
 		beforeEach: function() {
@@ -10,22 +10,28 @@
 			fakeMatch = {
 				getMoves: function() { return []; },
 				hasWinner: function() { return true; }
-			}
+			};
+
+			angular.module('connectFourApp').factory('dal', [function() {
+				return fakeDal;
+			}]);
+
+			$injector = angular.injector(['ng', 'connectFourApp']);
 		}
 	});
 
 	test("Can create default repository", function(assert){
-		var repository = new cf.MatchRepository();
+		var repository = $injector.get('matchRepository');
 		assert.ok(!!repository);
 	});
 
 	test("Can create default repository with fake DAL", function(assert){
-		var repository = new cf.MatchRepository(fakeDal);
+		var repository = $injector.get('matchRepository');
 		assert.ok(!!repository);
 	});
 
 	test("Add will send exported match to DAL", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
+		var repository = $injector.get('matchRepository');
 		fakeDal.saveMatch = function(matchData) {
 			assert.strictEqual(matchData.hasWinner, true);
 		};
@@ -34,7 +40,7 @@
 	});
 
 	test("Get will return DAL data as imported Match", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
+		var repository = $injector.get('matchRepository');
 		fakeDal.getLatestMatch = function() {
 			return { moves: [[0,0]] };
 		};
@@ -43,26 +49,24 @@
 	});
 
 	test("Getting all matches forwards to DAL", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
+		assert.expect(1);
 		fakeDal.getAllMatches = function() {
 			assert.ok(true);
 			return [];
 		};
-		assert.expect(1);
-		var matches = repository.getAllMatches();
+		var repository = $injector.get('matchRepository');
 	});
 
 	test("Getting all matches converts them to Match objects", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
 		fakeDal.getAllMatches = function() {
 			return [{ moves: [[0,1]] }];
 		};
-		var matches = repository.getAllMatches();
-		assert.strictEqual(matches[0].canRedo(), true);
+		var repository = $injector.get('matchRepository');
+		assert.strictEqual(repository.matches[0].canRedo(), true);
 	});
 
 	test("Getting all match headers forwards to DAL", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
+		var repository = $injector.get('matchRepository');
 		fakeDal.getMatchHeaders = function() {
 			assert.ok(true);
 		}
@@ -71,7 +75,7 @@
 	});
 
 	test("Finding by timestamp will be forwarded to DAL", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal),
+		var repository = $injector.get('matchRepository'),
 			testTimestamp = Date.now();
 		fakeDal.findByTimestamp = function(timestamp) {
 			assert.strictEqual(timestamp, testTimestamp, "Method should be called with provided fake timestamp");
@@ -82,7 +86,7 @@
 	});
 
 	test("Finding by timestamp will also accept numbers as strings", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal),
+		var repository = $injector.get('matchRepository'),
 			testTimestamp = Date.now();
 		fakeDal.findByTimestamp = function(timestamp) {
 			assert.strictEqual(timestamp, testTimestamp, "Method should be called with provided fake timestamp");
@@ -93,7 +97,7 @@
 	});
 
 	test("Finding by timestamp will return Match objects", function(assert) {
-		var repository = new cf.MatchRepository(fakeDal);
+		var repository = $injector.get('matchRepository');
 		fakeDal.findByTimestamp = function(_) {
 			return [{ moves: [[0,0]] }];
 		}

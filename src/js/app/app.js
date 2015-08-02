@@ -10,8 +10,4 @@
 		}
 	});
 	
-	app.run(["gameMaster", function(gameMaster) {
-		gameMaster.startNewMatch();
-	}]);
-	
 }(window.ConnectFour = window.ConnectFour || {}));

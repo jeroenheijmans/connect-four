@@ -6,7 +6,7 @@
 	<title>Connect Four</title>
 	<link rel="stylesheet" href="./lib/normalize.css">
 	<link rel="stylesheet" href="./css/styles.css">
-	<script src="./lib/angular.min.js"></script>
+	<script src="./lib/angular.js"></script>
 </head>
 <body ng-cloak ng-class="match.currentPlayer.isFirstPlayer ? 'player-one' : 'player-two'">
 
@@ -65,12 +65,14 @@
 	<script src="./js/domain/player.js"></script>
 	<script src="./js/domain/move.js"></script>
 	<script src="./js/domain/match.js"></script>
-	<script src="./js/domain/match-repository.js"></script>
 	<script src="./js/app/app.js"></script>
+	<script src="./js/app/dal.js"></script>
 	<script src="./js/app/boardController.js"></script>
+	<script src="./js/app/matchRepository.js"></script>
 	<script src="./js/app/gameMasterService.js"></script>
 	<script src="./js/app/matchControlsController.js"></script>
 	<script src="./js/app/recentMatchesController.js"></script>
 	<script src="./js/app/victoryController.js"></script>
+	<script src="./js/app/appStart.js"></script>
 </body>
 </html>

@@ -4,7 +4,6 @@
 
 	angular.module('connectFourApp').factory('gameMaster', [function () {
 		var service = {
-			repository: new cf.MatchRepository(),
 			board: new cf.Board(),
 			currentMatch: new cf.Match()
 		};

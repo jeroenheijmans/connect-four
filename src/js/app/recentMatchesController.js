@@ -2,11 +2,11 @@
 
 	'use strict';
 
-	angular.module('connectFourApp').controller('RecentMatchesController', ['$scope', '$timeout', 'gameMaster', function($scope, $timeout, gameMaster) {
-		$scope.matchHeaders = gameMaster.repository.getMatchHeaders().slice().reverse();
+	angular.module('connectFourApp').controller('RecentMatchesController', ['$scope', '$timeout', 'gameMaster', 'matchRepository', function($scope, $timeout, gameMaster, matchRepository) {
+		$scope.matchHeaders = matchRepository.getMatchHeaders().slice().reverse();
 
 		$scope.startReplay = function(matchHeader) {
-			var match = gameMaster.repository.findByTimestamp(matchHeader.timestamp)[0];
+			var match = matchRepository.findByTimestamp(matchHeader.timestamp)[0];
 			
 			match.start(gameMaster.board);
 
@@ -23,7 +23,7 @@
 		};
 
 		$scope.clearHistory = function() {
-			gameMaster.repository.clear();
+			matchRepository.clear();
 		};
 	}]);
 	
