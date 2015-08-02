@@ -4,7 +4,9 @@
 	QUnit.module("MatchRepository", {
 		beforeEach: function() {
 			fakeDal = {
-				getAllMatches: function() { return [] }
+				getAllMatches: function() { return [] },
+				saveMatch: function() { },
+				clear: function() { }
 			};
 
 			fakeMatch = {
@@ -94,6 +96,19 @@
 		}
 		var matches = repository.findByTimestamp(Date.now());
 		assert.strictEqual(matches[0].canRedo(), true);
+	});
+
+	test("Adding a match actually adds it to the list of matches", function(assert) {
+		var repository = $injector.get('matchRepository');
+		repository.add(fakeMatch);
+		assert.strictEqual(repository.matches.length, 1);
+	});
+
+	test("Clearing all matches actually empties matches array", function(assert) {
+		var repository = $injector.get('matchRepository');
+		repository.add(fakeMatch);
+		repository.clear();
+		assert.strictEqual(repository.matches.length, 0);
 	});
 
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

@@ -13,6 +13,7 @@
 		service.add = function(match) {
 			var data = cf.Util.exportMatch(match);
 			dal.saveMatch(data);
+			service.matches.unshift(match);
 			return data;
 		};
 
@@ -30,6 +31,7 @@
 
 		service.clear = function() {
 			dal.clear();
+			service.matches.length = 0;
 		};
 
 		return service;
