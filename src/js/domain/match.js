@@ -5,6 +5,7 @@
 			undoStack = [],
 			board = null;
 
+		self.timestamp = Date.now();
 		self.player1 = new cf.Player("Player 1", true);
 		self.player2 = new cf.Player("Player 2", false);
 		self.currentPlayer = self.player1;

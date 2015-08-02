@@ -32,12 +32,14 @@
 					return m.getCoordinates();
 				}),
 				hasWinner: match.hasWinner(),
-				timestamp: Date.now()
+				timestamp: match.timestamp
 			};
 		},
 
 		importMatch: function(matchData) {
 			var match = new cf.Match(), moves = [], player;
+
+			match.timestamp = matchData.timestamp;
 
 			for (var i = 0; i < matchData.moves.length; i++) {
 				// TODO: This does not feel quite right. Why do Move

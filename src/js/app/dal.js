@@ -16,14 +16,6 @@
 			return matches;
 		};
 
-		service.getMatchHeaders = function() {
-			// In this DAL, full objects can easily be used as
-			// headers, no need to make a more lightweight set
-			// of objects (this would probably cost more than
-			// what it would gain us...).
-			return service.getAllMatches();
-		};
-
 		service.findByTimestamp = function(timestamp) {
 			return service.getAllMatches().filter(function(m) {
 				return m.timestamp === timestamp;

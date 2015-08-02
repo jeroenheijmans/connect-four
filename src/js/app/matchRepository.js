@@ -21,10 +21,6 @@
 			return cf.Util.importMatch(data);
 		};
 
-		service.getMatchHeaders = function() {
-			return dal.getMatchHeaders();
-		};
-
 		service.findByTimestamp = function(timestamp) {
 			timestamp = parseInt(timestamp, 10);
 			return dal.findByTimestamp(timestamp).map(function(data) {

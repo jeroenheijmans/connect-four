@@ -3,7 +3,7 @@
 	'use strict';
 
 	angular.module('connectFourApp').controller('RecentMatchesController', ['$scope', '$timeout', 'gameMaster', 'matchRepository', function($scope, $timeout, gameMaster, matchRepository) {
-		$scope.matchHeaders = matchRepository.getMatchHeaders().slice().reverse();
+		$scope.matchHeaders = matchRepository.matches;
 
 		$scope.startReplay = function(matchHeader) {
 			var match = matchRepository.findByTimestamp(matchHeader.timestamp)[0];

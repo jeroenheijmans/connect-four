@@ -29,6 +29,7 @@
 			};
 			
 			fakeMatch = {
+				timestamp: 1420066800000,
 				fakeMoveList: [],
 				fakeHasWinner: false
 			};
@@ -176,6 +177,12 @@
 		
 		var output = cf.Util.exportMatch(match);
 		assert.deepEqual(output.moves, input.moves);
+	});
+
+	test("importMatch will set timestamp on entity", function(assert) {
+		var input = { moves: [], timestamp: 1420066800000 };
+		var match = cf.Util.importMatch(input);
+		assert.strictEqual(match.timestamp, 1420066800000);
 	});
 
 

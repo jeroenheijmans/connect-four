@@ -65,15 +65,6 @@
 		assert.strictEqual(repository.matches[0].canRedo(), true);
 	});
 
-	test("Getting all match headers forwards to DAL", function(assert) {
-		var repository = $injector.get('matchRepository');
-		fakeDal.getMatchHeaders = function() {
-			assert.ok(true);
-		}
-		expect(1);
-		var headers = repository.getMatchHeaders();
-	});
-
 	test("Finding by timestamp will be forwarded to DAL", function(assert) {
 		var repository = $injector.get('matchRepository'),
 			testTimestamp = Date.now();
