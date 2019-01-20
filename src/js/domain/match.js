@@ -60,5 +60,12 @@
 
 		self.hasWinner = () => board.hasWinner();
 		self.getWinner = () => board.getWinner();
+
+		function highlight(strings, ...values) {
+			return strings.reduce((prev, next, i) => `${prev}${next}${values[i] ? `🥇 ${values[i]} 🥇` : ''}`, '');
+		}
+
+		self.getWinnerText = () => 
+			highlight`WINNER: ${self.getWinner() ? self.getWinner().name : ''}`;
 	};
 }(window.ConnectFour = window.ConnectFour || {}));

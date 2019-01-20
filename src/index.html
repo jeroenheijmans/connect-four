@@ -15,7 +15,7 @@
 	<div class="inner">
 
 		<div class="winner" ng-controller="VictoryController" ng-show="match.hasWinner()" ng-class="match.getWinner().isFirstPlayer ? 'player-one' : 'player-two'">
-			<p>WINNER: {{ match.getWinner().name }}!</p>
+			<p>{{ match.getWinnerText() }}</p>
 			<button ng-click="saveReplay()">💾 Save Replay</button>
 			<button ng-click="startNewMatch()">★ New Match</button>
 		</div>
