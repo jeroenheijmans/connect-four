@@ -4,7 +4,7 @@
 			stateChangeEventHandlers = [];
 
 		function notifyStateChangeSubscribers(eventArgs) {
-			stateChangeEventHandlers.forEach(function(handler) {
+			stateChangeEventHandlers.forEach(handler => {
 				if (!!handler) {
 					handler(eventArgs);
 				}
@@ -34,19 +34,11 @@
 			}
 		};
 
-		self.addBoardChangeEventHandler = function(handler) {
-			stateChangeEventHandlers.push(handler);
-		};
+		self.addBoardChangeEventHandler = h => stateChangeEventHandlers.push(h);
+		self.slotStateChangeEventHandler = e => notifyStateChangeSubscribers(e);
+		self.getRows = () => self.slots;
 
-		self.slotStateChangeEventHandler = function(eventArgs) {
-			notifyStateChangeSubscribers(eventArgs);
-		};
-
-		self.getRows = function() {
-			return self.slots;
-		};
-
-		self.getColumns = function() {
+		self.getColumns = () => {
 			const transposed = new Array(self.width);
 
 			for (let r = 0; r < self.height; r++) {
@@ -59,7 +51,7 @@
 			return transposed;
 		};
 
-		self.getDiagonals = function() {
+		self.getDiagonals = () => {
 			let diagonalLines = [], fromRowIndex, fromColIndex, x, y;
 
 			// 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
@@ -119,12 +111,9 @@
 			return winningRanges;
 		}
 
-		self.hasWinner = function() {
-			const winningRanges = findWinningRanges();
-			return winningRanges.length > 0;
-		};
+		self.hasWinner = () => findWinningRanges().length > 0;
 
-		self.getWinner = function() {
+		self.getWinner = () => {
 			const winningRanges = findWinningRanges();
 
 			if (winningRanges.length === 0) {

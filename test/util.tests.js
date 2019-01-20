@@ -15,7 +15,7 @@
 	}
 
 	QUnit.module("Util", {
-		beforeEach: function() {
+		beforeEach() {
 			yellow = { name: 'Player 1 (yellow)' };
 			red = { name: 'Player 2 (red)' };
 
@@ -24,9 +24,7 @@
 				col: 0
 			};
 
-			fakeMove.getCoordinates = function() {
-				return [fakeMove.row, fakeMove.col];
-			};
+			fakeMove.getCoordinates = () => [fakeMove.row, fakeMove.col];
 			
 			fakeMatch = {
 				timestamp: 1420066800000,
@@ -34,36 +32,31 @@
 				fakeHasWinner: false
 			};
 
-			fakeMatch.getMoves = function() { 
-				return fakeMatch.fakeMoveList; 
-			};
-
-			fakeMatch.hasWinner = function() {
-				return fakeMatch.fakeHasWinner;
-			};
+			fakeMatch.getMoves = () => fakeMatch.fakeMoveList;
+			fakeMatch.hasWinner = () => fakeMatch.fakeHasWinner;
 		}
 	});
 
-	test("findRanges returns empty list for []", function(assert) {
+	test("findRanges returns empty list for []", assert => {
 		const lineOfSlots = [];
 		assert.deepEqual(cf.Util.findRanges(lineOfSlots), []);
 	});
 
-	test("findRanges returns single range for [x]", function(assert) {
+	test("findRanges returns single range for [x]", assert => {
 		const lineOfSlots = [getFakeSlot(yellow)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
 		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
-	test("findRanges returns single range for [x, x]", function(assert) {
+	test("findRanges returns single range for [x, x]", assert => {
 		const lineOfSlots = [getFakeSlot(yellow), getFakeSlot(yellow)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
 		assertRangeIsOk(assert, ranges[0], yellow, 2);
 	});
 
-	test("findRanges returns two ranges for [x, y]", function(assert) {
+	test("findRanges returns two ranges for [x, y]", assert => {
 		const lineOfSlots = [getFakeSlot(yellow), getFakeSlot(red)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 2);
@@ -71,7 +64,7 @@
 		assertRangeIsOk(assert, ranges[1], red, 1);
 	});
 
-	test("findRanges returns two ranges for [x, null, y]", function(assert) {
+	test("findRanges returns two ranges for [x, null, y]", assert => {
 		const lineOfSlots = [getFakeSlot(yellow), getFakeSlot(null), getFakeSlot(red)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 2);
@@ -79,33 +72,33 @@
 		assertRangeIsOk(assert, ranges[1], red, 1);
 	});
 
-	test("findRanges returns single range for [null, x]", function(assert) {
+	test("findRanges returns single range for [null, x]", assert => {
 		const lineOfSlots = [getFakeSlot(null), getFakeSlot(yellow)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
 		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
-	test("findRanges returns single range for [null, null, x]", function(assert) {
+	test("findRanges returns single range for [null, null, x]", assert => {
 		const lineOfSlots = [getFakeSlot(null), getFakeSlot(null), getFakeSlot(yellow)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 1);
 		assertRangeIsOk(assert, ranges[0], yellow, 1);
 	});
 
-	test("findRanges will not concat ranges seperated by null", function(assert) {
+	test("findRanges will not concat ranges seperated by null", assert => {
 		const lineOfSlots = [getFakeSlot(yellow), getFakeSlot(null), getFakeSlot(yellow)];
 		const ranges = cf.Util.findRanges(lineOfSlots);
 		assert.strictEqual(ranges.length, 2);
 	});
 
-	test("exportMatch returns object", function(assert) {
+	test("exportMatch returns object", assert => {
 		const result = cf.Util.exportMatch(fakeMatch);
 		assert.notStrictEqual(result, null);
 		assert.strictEqual(typeof result, 'object');
 	});
 
-	test("exportMatch returns object with hasWinner info", function(assert) {
+	test("exportMatch returns object with hasWinner info", assert => {
 		// True, this specs that we should have redundant info
 		// inside an exported match (because you can also determine
 		// a winner by replaying an export), but I'd say it's 
@@ -115,25 +108,25 @@
 		assert.strictEqual(result.hasWinner, true);
 	});
 
-	test("exportMatch returns empty move list for default match", function(assert) {
+	test("exportMatch returns empty move list for default match", assert => {
 		fakeMatch.fakeMoveList = [];
 		const result = cf.Util.exportMatch(fakeMatch);
 		assert.deepEqual(result.moves, []);
 	});
 
-	test("exportMatch returns single item move list for match with one move", function(assert) {
+	test("exportMatch returns single item move list for match with one move", assert => {
 		fakeMatch.fakeMoveList = [fakeMove];
 		const result = cf.Util.exportMatch(fakeMatch);
 		assert.strictEqual(result.moves.length, 1);
 	});
 
-	test("exportMatch returns two item move list for match with two moves", function(assert) {
+	test("exportMatch returns two item move list for match with two moves", assert => {
 		fakeMatch.fakeMoveList = [fakeMove, fakeMove];
 		const result = cf.Util.exportMatch(fakeMatch);
 		assert.strictEqual(result.moves.length, 2);
 	});
 
-	test("exportMatch will export moves as coordinates", function(assert) {
+	test("exportMatch will export moves as coordinates", assert => {
 		fakeMove.row = 3;
 		fakeMove.col = 4;
 		fakeMatch.fakeMoveList = [fakeMove];
@@ -142,30 +135,30 @@
 		assert.strictEqual(result.moves[0][1], 4);
 	});
 
-	test("exportMatch will note a timestamp", function(assert) {
+	test("exportMatch will note a timestamp", assert => {
 		const result = cf.Util.exportMatch(fakeMatch);
 		assert.strictEqual(typeof result.timestamp, "number");
 	});
 
-	test("importMatch can handle most default game", function(assert) {
+	test("importMatch can handle most default game", assert => {
 		const matchData = { moves: [] };
 		const match = cf.Util.importMatch(matchData);
 		assert.ok(!!match);
 	});
 
-	test("importMatch result for single-move match allows redo", function(assert) {
+	test("importMatch result for single-move match allows redo", assert => {
 		const matchData = { moves: [[0,0]] };
 		const match = cf.Util.importMatch(matchData);
 		assert.strictEqual(match.canRedo(), true);
 	});
 
-	test("importMatch result for two-move match allows redo", function(assert) {
+	test("importMatch result for two-move match allows redo", assert => {
 		const matchData = { moves: [[0,0],[0,1]] };
 		const match = cf.Util.importMatch(matchData);
 		assert.strictEqual(match.canRedo(), true);
 	});
 
-	test("importMatch followed by exportMatch gives the same result", function(assert) {
+	test("importMatch followed by exportMatch gives the same result", assert => {
 		const input = { moves: [[0,0],[0,1]], hasWinner: true };
 		const match = cf.Util.importMatch(input);
 		
@@ -179,7 +172,7 @@
 		assert.deepEqual(output.moves, input.moves);
 	});
 
-	test("importMatch will set timestamp on entity", function(assert) {
+	test("importMatch will set timestamp on entity", assert => {
 		const input = { moves: [], timestamp: 1420066800000 };
 		const match = cf.Util.importMatch(input);
 		assert.strictEqual(match.timestamp, 1420066800000);

@@ -2,7 +2,7 @@
 	let fakeYellowPlayer, fakeRedPlayer;
 
 	QUnit.module("Boards", {
-		beforeEach: function() {
+		beforeEach: () => {
 			fakeYellowPlayer = {};
 			fakeRedPlayer = {};
 		}
@@ -10,18 +10,18 @@
 
 	const defaultBoardWidth = 7, defaultBoardHeight = 6;
 
-	test("Can create default board", function(assert) {
+	test("Can create default board", assert => {
 		const board = new cf.Board();
 		assert.ok(!!board);
 	});
 
-	test("Default board should be 7x6", function(assert) {
+	test("Default board should be 7x6", assert => {
 		const board = new cf.Board();
 		assert.strictEqual(board.width, defaultBoardWidth);
 		assert.strictEqual(board.height, defaultBoardHeight);
 	});
 
-	test("Default board should be empty", function(assert) {
+	test("Default board should be empty", assert => {
 		const board = new cf.Board();
 		assert.expect(defaultBoardWidth * defaultBoardHeight);
 		board.slots.forEach(function(row) {
@@ -31,12 +31,12 @@
 		});
 	});
 
-	test("Default board has no winners", function(assert) {
+	test("Default board has no winners", assert => {
 		const board = new cf.Board();
 		assert.strictEqual(board.hasWinner(), false);
 	});
 
-	test("Can see winner for horizontal four-in-a-row", function(assert) {
+	test("Can see winner for horizontal four-in-a-row", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[0][1].setPlayer(fakeYellowPlayer);
@@ -45,7 +45,7 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Can see winner for horizontal four-in-a-row at the end", function(assert) {
+	test("Can see winner for horizontal four-in-a-row at the end", assert => {
 		const board = new cf.Board();
 		board.slots[0][defaultBoardWidth - 1].setPlayer(fakeYellowPlayer);
 		board.slots[0][defaultBoardWidth - 2].setPlayer(fakeYellowPlayer);
@@ -54,7 +54,7 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Can see winner for vertical four-in-a-row", function(assert) {
+	test("Can see winner for vertical four-in-a-row", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[1][0].setPlayer(fakeYellowPlayer);
@@ -63,7 +63,7 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Can see winner for 45deg diagonal four-in-a-row", function(assert) {
+	test("Can see winner for 45deg diagonal four-in-a-row", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[1][1].setPlayer(fakeYellowPlayer);
@@ -72,7 +72,7 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Can see winner for -45deg diagonal four-in-a-row", function(assert) {
+	test("Can see winner for -45deg diagonal four-in-a-row", assert => {
 		const board = new cf.Board();
 		board.slots[3][0].setPlayer(fakeYellowPlayer);
 		board.slots[2][1].setPlayer(fakeYellowPlayer);
@@ -81,7 +81,7 @@
 		assert.strictEqual(board.hasWinner(), true);
 	});
 
-	test("Will not see winner if range mixes players", function(assert) {
+	test("Will not see winner if range mixes players", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[0][1].setPlayer(fakeRedPlayer); // Different player!
@@ -90,7 +90,7 @@
 		assert.strictEqual(board.hasWinner(), false);
 	});
 
-	test("Will not see winner if range is broken up", function(assert) {
+	test("Will not see winner if range is broken up", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[0][1].setPlayer(null); // Empty!
@@ -99,7 +99,7 @@
 		assert.strictEqual(board.hasWinner(), false);
 	});
 
-	test("Can retrieve winner", function(assert) {
+	test("Can retrieve winner", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.slots[0][1].setPlayer(fakeYellowPlayer);
@@ -108,7 +108,7 @@
 		assert.strictEqual(board.getWinner(), fakeYellowPlayer);
 	});
 
-	test("Will not have incorrect winner (regression 1)", function (assert) {
+	test("Will not have incorrect winner (regression 1)", assert => {
 		// Particular scenario found while testing
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
@@ -119,12 +119,12 @@
 		assert.strictEqual(board.hasWinner(), false);
 	});
 
-	test("Retrieving winner returns null if there's no winner", function(assert) {
+	test("Retrieving winner returns null if there's no winner", assert => {
 		const board = new cf.Board();
 		assert.strictEqual(board.getWinner(), null);
 	});
 
-	test("Board will subscribe to slot change events and notify its subscribers", function(assert) {
+	test("Board will subscribe to slot change events and notify its subscribers", assert => {
 		const board = new cf.Board();
 		board.addBoardChangeEventHandler(function(_) { 
 			assert.ok(true);
@@ -133,7 +133,7 @@
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 	});
 
-	test("Board will notify subscribers with sender (slot)", function(assert) {
+	test("Board will notify subscribers with sender (slot)", assert => {
 		const board = new cf.Board();
 		board.addBoardChangeEventHandler(function(eventArgs) { 
 			assert.strictEqual(eventArgs.slot, board.slots[0][0]);
@@ -142,7 +142,7 @@
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 	});
 
-	test("Board will notify subscribers with coordinates", function(assert) {
+	test("Board will notify subscribers with coordinates", assert => {
 		const board = new cf.Board();
 		board.addBoardChangeEventHandler(function(eventArgs) {
 			assert.strictEqual(eventArgs.slot.getRowIndex(), 0);
@@ -152,7 +152,7 @@
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 	});
 
-	test("Board can be cleared", function(assert) {
+	test("Board can be cleared", assert => {
 		const board = new cf.Board();
 		board.slots[0][0].setPlayer(fakeYellowPlayer);
 		board.clear();

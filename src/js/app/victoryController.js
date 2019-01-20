@@ -2,11 +2,11 @@
 
 	'use strict';
 
-	angular.module('connectFourApp').controller('VictoryController', ['$rootScope', '$scope', 'gameMaster', 'matchRepository', function($rootScope, $scope, gameMaster, matchRepository) {
+	angular.module('connectFourApp').controller('VictoryController', ['$rootScope', '$scope', 'gameMaster', 'matchRepository', ($rootScope, $scope, gameMaster, matchRepository) => {
 		$rootScope.match = gameMaster.currentMatch;
 		$scope.match = gameMaster.currentMatch;
 		$scope.startNewMatch = gameMaster.startNewMatch;
-		$scope.saveReplay = function() { 
+		$scope.saveReplay = () => { 
 			matchRepository.add(gameMaster.currentMatch);
 			gameMaster.startNewMatch();
 		};

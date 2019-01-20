@@ -2,34 +2,27 @@
 
 	'use strict';
 
-	angular.module('connectFourApp').factory('matchRepository', ['dal', function (dal) {
+	angular.module('connectFourApp').factory('matchRepository', ['dal', (dal) => {
 
 		const service = {
-			matches: dal.getAllMatches().map(function(data) {
-				return cf.Util.importMatch(data);
-			})
+			matches: dal.getAllMatches().map(data => cf.Util.importMatch(data)),
 		};
 
-		service.add = function(match) {
+		service.add = match => {
 			const data = cf.Util.exportMatch(match);
 			dal.saveMatch(data);
 			service.matches.unshift(match);
 			return data;
 		};
 
-		service.getLatestMatch = function() {
-			const data = dal.getLatestMatch();
-			return cf.Util.importMatch(data);
-		};
+		service.getLatestMatch = () => cf.Util.importMatch(dal.getLatestMatch());
 
-		service.findByTimestamp = function(timestamp) {
+		service.findByTimestamp = timestamp => {
 			timestamp = parseInt(timestamp, 10);
-			return dal.findByTimestamp(timestamp).map(function(data) {
-				return cf.Util.importMatch(data);
-			});
+			return dal.findByTimestamp(timestamp).map(data => cf.Util.importMatch(data));
 		};
 
-		service.clear = function() {
+		service.clear = () => {
 			dal.clear();
 			service.matches.length = 0;
 		};

@@ -6,8 +6,6 @@
 		
 		self.player = player;
 		self.rangeLength = rangeLength;
-		self.isWinningRange = function() {
-			return self.rangeLength >= minLengthToWin;
-		};
+		self.isWinningRange = () => self.rangeLength >= minLengthToWin;
 	};
 }(window.ConnectFour = window.ConnectFour || {}));

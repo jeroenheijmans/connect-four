@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('connectFourApp').controller('RecentMatchesController', ['$scope', '$timeout', 'gameMaster', 'matchRepository', function($scope, $timeout, gameMaster, matchRepository) {
+	angular.module('connectFourApp').controller('RecentMatchesController', ['$scope', '$timeout', 'gameMaster', 'matchRepository', ($scope, $timeout, gameMaster, matchRepository) => {
 		$scope.matchHeaders = matchRepository.matches;
 
 		$scope.startReplay = function(matchHeader) {
@@ -13,18 +13,14 @@
 			function delayedMove() {
 				if (match.canRedo()) {
 					match.redo();
-					$timeout(function() {
-						delayedMove();
-					}, 500);
+					$timeout(() => delayedMove(), 500);
 				}
 			}
 
 			delayedMove();
 		};
 
-		$scope.clearHistory = function() {
-			matchRepository.clear();
-		};
+		$scope.clearHistory = () => matchRepository.clear();
 	}]);
 	
 }(window.ConnectFour = window.ConnectFour || {}));

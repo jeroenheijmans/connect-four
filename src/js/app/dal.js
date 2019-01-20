@@ -2,27 +2,25 @@
 
 	'use strict';
 
-	angular.module('connectFourApp').factory('dal', [function () {
+	angular.module('connectFourApp').factory('dal', [() => {
 		const localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
 
 		const service = { };
 		
-		service.getAllMatches = function() {
+		service.getAllMatches = () => {
 			const json = localStorage.getItem(localStorageKey);
-			const matches = [];
+			let matches = [];
 			if (!!json) {
 				matches = JSON.parse(json);
 			}
 			return matches;
 		};
 
-		service.findByTimestamp = function(timestamp) {
-			return service.getAllMatches().filter(function(m) {
-				return m.timestamp === timestamp;
-			});
-		};
+		service.findByTimestamp = timestamp => service
+			.getAllMatches()
+			.filter(m => m.timestamp === timestamp);
 
-		service.getLatestMatch = function() {
+		service.getLatestMatch = () => {
 			const matches = service.getAllMatches();
 			if (matches.length > 0) {
 				return matches[matches.length - 1];
@@ -30,16 +28,14 @@
 			return null;
 		};
 
-		service.saveMatch = function(matchData) {
+		service.saveMatch = (matchData) => {
 			const matches = service.getAllMatches();
 			matches.push(matchData);
 			const json = JSON.stringify(matches);
 			localStorage.setItem(localStorageKey, json);
 		};
 
-		service.clear = function() {
-			localStorage.clear();
-		};
+		service.clear = () => localStorage.clear();
 
 		return service;
 	}]);

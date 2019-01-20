@@ -2,37 +2,35 @@
 	let fakeDal, fakeMatch, $injector;
 
 	QUnit.module("MatchRepository", {
-		beforeEach: function() {
+		beforeEach: () => {
 			fakeDal = {
-				getAllMatches: function() { return [] },
-				saveMatch: function() { },
-				clear: function() { }
+				getAllMatches() { return [] },
+				saveMatch() { },
+				clear() { }
 			};
 
 			fakeMatch = {
-				getMoves: function() { return []; },
-				hasWinner: function() { return true; }
+				getMoves() { return []; },
+				hasWinner() { return true; }
 			};
 
-			angular.module('connectFourApp').factory('dal', [function() {
-				return fakeDal;
-			}]);
+			angular.module('connectFourApp').factory('dal', [() => fakeDal]);
 
 			$injector = angular.injector(['ng', 'connectFourApp']);
 		}
 	});
 
-	test("Can create default repository", function(assert){
+	test("Can create default repository", assert => {
 		const repository = $injector.get('matchRepository');
 		assert.ok(!!repository);
 	});
 
-	test("Can create default repository with fake DAL", function(assert){
+	test("Can create default repository with fake DAL", assert => {
 		const repository = $injector.get('matchRepository');
 		assert.ok(!!repository);
 	});
 
-	test("Add will send exported match to DAL", function(assert) {
+	test("Add will send exported match to DAL", assert => {
 		const repository = $injector.get('matchRepository');
 		fakeDal.saveMatch = function(matchData) {
 			assert.strictEqual(matchData.hasWinner, true);
@@ -41,7 +39,7 @@
 		repository.add(fakeMatch);
 	});
 
-	test("Get will return DAL data as imported Match", function(assert) {
+	test("Get will return DAL data as imported Match", assert => {
 		const repository = $injector.get('matchRepository');
 		fakeDal.getLatestMatch = function() {
 			return { moves: [[0,0]] };
@@ -50,7 +48,7 @@
 		assert.strictEqual(match.canRedo(), true);
 	});
 
-	test("Getting all matches forwards to DAL", function(assert) {
+	test("Getting all matches forwards to DAL", assert => {
 		assert.expect(1);
 		fakeDal.getAllMatches = function() {
 			assert.ok(true);
@@ -59,7 +57,7 @@
 		const repository = $injector.get('matchRepository');
 	});
 
-	test("Getting all matches converts them to Match objects", function(assert) {
+	test("Getting all matches converts them to Match objects", assert => {
 		fakeDal.getAllMatches = function() {
 			return [{ moves: [[0,1]] }];
 		};
@@ -67,7 +65,7 @@
 		assert.strictEqual(repository.matches[0].canRedo(), true);
 	});
 
-	test("Finding by timestamp will be forwarded to DAL", function(assert) {
+	test("Finding by timestamp will be forwarded to DAL", assert => {
 		const repository = $injector.get('matchRepository'),
 			testTimestamp = Date.now();
 		fakeDal.findByTimestamp = function(timestamp) {
@@ -78,7 +76,7 @@
 		const matches = repository.findByTimestamp(testTimestamp);		
 	});
 
-	test("Finding by timestamp will also accept numbers as strings", function(assert) {
+	test("Finding by timestamp will also accept numbers as strings", assert => {
 		const repository = $injector.get('matchRepository'),
 			testTimestamp = Date.now();
 		fakeDal.findByTimestamp = function(timestamp) {
@@ -89,7 +87,7 @@
 		const matches = repository.findByTimestamp(testTimestamp.toString());		
 	});
 
-	test("Finding by timestamp will return Match objects", function(assert) {
+	test("Finding by timestamp will return Match objects", assert => {
 		const repository = $injector.get('matchRepository');
 		fakeDal.findByTimestamp = function(_) {
 			return [{ moves: [[0,0]] }];
@@ -98,13 +96,13 @@
 		assert.strictEqual(matches[0].canRedo(), true);
 	});
 
-	test("Adding a match actually adds it to the list of matches", function(assert) {
+	test("Adding a match actually adds it to the list of matches", assert => {
 		const repository = $injector.get('matchRepository');
 		repository.add(fakeMatch);
 		assert.strictEqual(repository.matches.length, 1);
 	});
 
-	test("Clearing all matches actually empties matches array", function(assert) {
+	test("Clearing all matches actually empties matches array", assert => {
 		const repository = $injector.get('matchRepository');
 		repository.add(fakeMatch);
 		repository.clear();

@@ -5,7 +5,7 @@
 			stateChangeEventHandlers = [];
 
 		function notifyStateChangeSubscribers(){
-			stateChangeEventHandlers.forEach(function(handler) {
+			stateChangeEventHandlers.forEach(handler => {
 				if (!!handler) {
 					handler({
 						slot: self
@@ -17,19 +17,11 @@
 		self.getRowIndex = function() { return rowIndex; }
 		self.getColIndex = function() { return colIndex; }
 
-		self.addChangeEventHandler = function(handler) {
-			stateChangeEventHandlers.push(handler);
-		};
+		self.addChangeEventHandler = h => stateChangeEventHandlers.push(h);
+		self.getPlayer = () => takenByPlayer;
+		self.isEmpty = () => takenByPlayer === null;
 
-		self.getPlayer = function() {
-			return takenByPlayer;
-		};
-
-		self.isEmpty = function() {
-			return takenByPlayer === null;
-		};
-
-		self.setPlayer = function(player) {
+		self.setPlayer = (player) => {
 			if (takenByPlayer === player) {
 				return;
 			}
@@ -38,7 +30,7 @@
 			notifyStateChangeSubscribers();
 		};
 
-		self.clear = function() {
+		self.clear = () => {
 			if (self.isEmpty()) {
 				return;
 			}

@@ -18,59 +18,47 @@
 			}
 		}
 
-		self.start = function(theBoard) {
+		self.start = theBoard => {
 			board = theBoard;
 			board.clear();
 		}
 
-		self.getMoves = function() {
-			// Return a duplicate so the actual undo stack
-			// can not be modified by callers.
-			return undoStack.slice();
-		};
+		// Return a duplicate so the actual undo stack
+		// can not be modified by callers.
+		self.getMoves = () => undoStack.slice();
 
-		self.canRedo = function() {
-			return redoStack.length > 0;
-		};
+		self.canRedo = () => redoStack.length > 0;
+		self.canUndo = () => undoStack.length > 0;
 
-		self.canUndo = function() {
-			return undoStack.length > 0;
-		};
-
-		self.doMove = function(move) {
+		self.doMove = move => {
 			switchPlayer();
 			undoStack.push(move);
 			redoStack.length = 0;
 			move.redo(board);
 		};
 
-		self.redo = function() {
+		self.redo = () => {
 			switchPlayer();
 			const move = redoStack.pop();
 			move.redo(board);
 			undoStack.push(move);
 		};
 
-		self.undo = function() {
+		self.undo = () => {
 			switchPlayer();
 			const move = undoStack.pop();
 			move.undo(board);
 			redoStack.push(move);
 		};
 
-		self.loadMovesOnRedoStack = function(moveList) {
+		self.loadMovesOnRedoStack = (moveList) => {
 			// The moveList will have the first move at position 0,
 			// with subsequent moves after that. The stack works
 			// in reverse though, so we should reverse the list.
 			redoStack = moveList.slice(0).reverse();
 		};
 
-		self.hasWinner = function() {
-			return board.hasWinner();
-		};
-
-		self.getWinner = function() {
-			return board.getWinner();
-		};
+		self.hasWinner = () => board.hasWinner();
+		self.getWinner = () => board.getWinner();
 	};
 }(window.ConnectFour = window.ConnectFour || {}));

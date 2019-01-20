@@ -9,12 +9,12 @@
 		// to render from top to bottom, so we offer it reversed rows:
 		$scope.rowsToDraw = gameMaster.board.slots.slice().reverse();
 
-		$scope.doMove = function(slot) {
+		$scope.doMove = (slot) => {
 			const move = new cf.Move(slot.getColIndex(), gameMaster.currentMatch.currentPlayer);
 			gameMaster.currentMatch.doMove(move);
 		};
 
-		$scope.getSlotCssClass = function(slot) {
+		$scope.getSlotCssClass = (slot) => {
 			const player = slot.getPlayer();
 
 			if (!player) {
