@@ -1,0 +1,18 @@
+{
+  "name": "connect-four",
+  "scripts": {
+    "start": "npm-run-all --parallel serve watch",
+    "serve": "serve .",
+    "watch": "livereload ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroenheijmans/connect-four.git"
+  },
+  "author": "Jeroen Heijmans",
+  "devDependencies": {
+    "livereload": "^0.7.0",
+    "npm-run-all": "^4.1.5",
+    "serve": "^10.1.1"
+  }
+}
