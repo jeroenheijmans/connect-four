@@ -3,7 +3,7 @@
 		findRanges: function(lineOfSlots) {
 		    if (lineOfSlots.length === 0) { return []; }
 		    
-		    var previousPlayer = lineOfSlots[0].getPlayer(),
+		    let previousPlayer = lineOfSlots[0].getPlayer(),
 		    	currentPlayer = previousPlayer,
 				ranges = [];
 
@@ -11,7 +11,7 @@
 			    ranges.push(new cf.Range(1, currentPlayer));
 			}
 		    
-		    for (var i = 1; i < lineOfSlots.length; i++) {
+		    for (let i = 1; i < lineOfSlots.length; i++) {
 		    	currentPlayer = lineOfSlots[i].getPlayer();
 
 		        if (!!currentPlayer && previousPlayer === currentPlayer) {
@@ -37,11 +37,11 @@
 		},
 
 		importMatch: function(matchData) {
-			var match = new cf.Match(), moves = [], player;
+			let match = new cf.Match(), moves = [], player;
 
 			match.timestamp = matchData.timestamp;
 
-			for (var i = 0; i < matchData.moves.length; i++) {
+			for (let i = 0; i < matchData.moves.length; i++) {
 				// TODO: This does not feel quite right. Why do Move
 				// objects need a player at all? Couldn't a match
 				// determine that whenever (re)doing it?

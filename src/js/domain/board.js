@@ -1,6 +1,6 @@
 (function (cf) {
 	cf.Board = function() {
-		var self = this,
+		const self = this,
 			stateChangeEventHandlers = [];
 
 		function notifyStateChangeSubscribers(eventArgs) {
@@ -16,10 +16,10 @@
 
 		self.slots = [];
 
-		for (var r = 0; r < self.height; r++) {
+		for (let r = 0; r < self.height; r++) {
 			self.slots[r] = [];
 
-			for (var c = 0; c < self.width; c++) {
+			for (let c = 0; c < self.width; c++) {
 				self.slots[r][c] = new cf.Slot(r, c);
 
 				self.slots[r][c].addChangeEventHandler(notifyStateChangeSubscribers);
@@ -27,8 +27,8 @@
 		}
 
 		self.clear = function() {
-			for (var r = 0; r < self.slots.length; r++){
-				for (var c = 0; c < self.slots[r].length; c++) {
+			for (let r = 0; r < self.slots.length; r++){
+				for (let c = 0; c < self.slots[r].length; c++) {
 					self.slots[r][c].clear();
 				}
 			}
@@ -47,10 +47,10 @@
 		};
 
 		self.getColumns = function() {
-			var transposed = new Array(self.width);
+			const transposed = new Array(self.width);
 
-			for (var r = 0; r < self.height; r++) {
-				for (var c = 0; c < self.width; c++) {
+			for (let r = 0; r < self.height; r++) {
+				for (let c = 0; c < self.width; c++) {
 					transposed[c] = transposed[c] || [];
 					transposed[c][r] = self.slots[r][c];
 				}
@@ -60,7 +60,7 @@
 		};
 
 		self.getDiagonals = function() {
-			var diagonalLines = [], fromRowIndex, fromColIndex, x, y;
+			let diagonalLines = [], fromRowIndex, fromColIndex, x, y;
 
 			// 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
 			fromRowIndex = self.height - 1;
@@ -103,12 +103,12 @@
 		};
 
 		function findWinningRanges() {
-			var winningRanges = [], 
+			let winningRanges = [], 
 				slotRows = self.getRows()
 							.concat(self.getColumns())
 							.concat(self.getDiagonals());
 
-			for (var r = 0; r < slotRows.length; r++) {
+			for (let r = 0; r < slotRows.length; r++) {
 				winningRanges = winningRanges.concat(
 					cf.Util.findRanges(slotRows[r]).filter(function(range) { 
 						return range.isWinningRange(); 
@@ -120,12 +120,12 @@
 		}
 
 		self.hasWinner = function() {
-			var winningRanges = findWinningRanges();
+			const winningRanges = findWinningRanges();
 			return winningRanges.length > 0;
 		};
 
 		self.getWinner = function() {
-			var winningRanges = findWinningRanges();
+			const winningRanges = findWinningRanges();
 
 			if (winningRanges.length === 0) {
 				return null;

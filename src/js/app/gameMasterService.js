@@ -3,7 +3,7 @@
 	'use strict';
 
 	angular.module('connectFourApp').factory('gameMaster', [function () {
-		var service = {
+		const service = {
 			board: new cf.Board(),
 			currentMatch: new cf.Match()
 		};
@@ -26,7 +26,7 @@
 		};
 
 		service.doMove = function(colIndex) {
-			var move = new cf.Move(colIndex, service.currentMatch.currentPlayer);
+			const move = new cf.Move(colIndex, service.currentMatch.currentPlayer);
 			match.doMove(move);
 		};
 

@@ -1,8 +1,8 @@
 (function (cf) {
-	var minLengthToWin = 4; // Connect *FOUR* :-)
+	const minLengthToWin = 4; // Connect *FOUR* :-)
 
 	cf.Range = function(rangeLength, player) {
-		var self = this;
+		const self = this;
 		
 		self.player = player;
 		self.rangeLength = rangeLength;

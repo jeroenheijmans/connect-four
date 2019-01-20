@@ -1,6 +1,6 @@
 (function (cf) {
 	cf.Match = function() {
-		var self = this,
+		let self = this,
 			redoStack = [],
 			undoStack = [],
 			board = null;
@@ -46,14 +46,14 @@
 
 		self.redo = function() {
 			switchPlayer();
-			var move = redoStack.pop();
+			const move = redoStack.pop();
 			move.redo(board);
 			undoStack.push(move);
 		};
 
 		self.undo = function() {
 			switchPlayer();
-			var move = undoStack.pop();
+			const move = undoStack.pop();
 			move.undo(board);
 			redoStack.push(move);
 		};

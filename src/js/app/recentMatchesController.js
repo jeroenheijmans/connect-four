@@ -6,7 +6,7 @@
 		$scope.matchHeaders = matchRepository.matches;
 
 		$scope.startReplay = function(matchHeader) {
-			var match = matchRepository.findByTimestamp(matchHeader.timestamp)[0];
+			const match = matchRepository.findByTimestamp(matchHeader.timestamp)[0];
 			
 			match.start(gameMaster.board);
 

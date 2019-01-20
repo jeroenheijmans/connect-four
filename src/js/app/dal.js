@@ -3,13 +3,13 @@
 	'use strict';
 
 	angular.module('connectFourApp').factory('dal', [function () {
-		var localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
+		const localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
 
-		var service = { };
+		const service = { };
 		
 		service.getAllMatches = function() {
-			var json = localStorage.getItem(localStorageKey);
-			var matches = [];
+			const json = localStorage.getItem(localStorageKey);
+			const matches = [];
 			if (!!json) {
 				matches = JSON.parse(json);
 			}
@@ -23,7 +23,7 @@
 		};
 
 		service.getLatestMatch = function() {
-			var matches = service.getAllMatches();
+			const matches = service.getAllMatches();
 			if (matches.length > 0) {
 				return matches[matches.length - 1];
 			}
@@ -31,9 +31,9 @@
 		};
 
 		service.saveMatch = function(matchData) {
-			var matches = service.getAllMatches();
+			const matches = service.getAllMatches();
 			matches.push(matchData);
-			var json = JSON.stringify(matches);
+			const json = JSON.stringify(matches);
 			localStorage.setItem(localStorageKey, json);
 		};
 

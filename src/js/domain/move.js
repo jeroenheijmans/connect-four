@@ -1,6 +1,6 @@
 (function (cf) {
 	cf.Move = function(colIndex, player) {
-		var self = this,
+		let self = this,
 			rowIndex = null;
 
 		if (typeof colIndex === "undefined") {
@@ -15,7 +15,7 @@
 		};
 
 		self.redo = function(board) {
-			for (var r = 0; r < board.height; r++) {
+			for (let r = 0; r < board.height; r++) {
 				if (board.slots[r][colIndex].isEmpty()) {
 					board.slots[r][colIndex].setPlayer(player);
 					rowIndex = r;

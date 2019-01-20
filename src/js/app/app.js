@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var app = angular.module('connectFourApp', []);
+	const app = angular.module('connectFourApp', []);
 
 	app.filter('toLocale', function() {
 		return function (stamp) {

@@ -4,21 +4,21 @@
 
 	angular.module('connectFourApp').factory('matchRepository', ['dal', function (dal) {
 
-		var service = {
+		const service = {
 			matches: dal.getAllMatches().map(function(data) {
 				return cf.Util.importMatch(data);
 			})
 		};
 
 		service.add = function(match) {
-			var data = cf.Util.exportMatch(match);
+			const data = cf.Util.exportMatch(match);
 			dal.saveMatch(data);
 			service.matches.unshift(match);
 			return data;
 		};
 
 		service.getLatestMatch = function() {
-			var data = dal.getLatestMatch();
+			const data = dal.getLatestMatch();
 			return cf.Util.importMatch(data);
 		};
 

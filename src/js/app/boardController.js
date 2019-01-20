@@ -10,12 +10,12 @@
 		$scope.rowsToDraw = gameMaster.board.slots.slice().reverse();
 
 		$scope.doMove = function(slot) {
-			var move = new cf.Move(slot.getColIndex(), gameMaster.currentMatch.currentPlayer);
+			const move = new cf.Move(slot.getColIndex(), gameMaster.currentMatch.currentPlayer);
 			gameMaster.currentMatch.doMove(move);
 		};
 
 		$scope.getSlotCssClass = function(slot) {
-			var player = slot.getPlayer();
+			const player = slot.getPlayer();
 
 			if (!player) {
 				return 'empty';

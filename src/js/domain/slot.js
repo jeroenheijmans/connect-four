@@ -1,6 +1,6 @@
 (function (cf) {
 	cf.Slot = function(rowIndex, colIndex) {
-		var self = this,
+		let self = this,
 			takenByPlayer = null,
 			stateChangeEventHandlers = [];
 
