@@ -26,11 +26,11 @@
 		    return ranges;
 		},
 
-		exportMatch(match) {
+		exportMatch({ getMoves, hasWinner, timestamp }) {
 			return {
-				moves: match.getMoves().map(m => m.getCoordinates()),
-				hasWinner: match.hasWinner(),
-				timestamp: match.timestamp
+				moves: getMoves().map(m => m.getCoordinates()),
+				hasWinner: hasWinner(),
+				timestamp
 			};
 		},
 

@@ -39,11 +39,11 @@
 		self.getRows = () => self.slots;
 
 		self.getColumns = () => {
-			const transposed = new Array(self.width);
+			const transposed = [];
 
-			for (let r = 0; r < self.height; r++) {
-				for (let c = 0; c < self.width; c++) {
-					transposed[c] = transposed[c] || [];
+			for (let c = 0; c < self.width; c++) {
+				transposed[c] = [];
+				for (let r = 0; r < self.height; r++) {
 					transposed[c][r] = self.slots[r][c];
 				}
 			}
@@ -61,7 +61,7 @@
 			do {
 				diagonalLines.push([]);
 
-				for (x = fromColIndex, y = fromRowIndex; x < self.width && y < self.height; x++, y++) {
+				for (let x = fromColIndex, y = fromRowIndex; x < self.width && y < self.height; x++, y++) {
 					diagonalLines[diagonalLines.length - 1].push(self.slots[y][x]);
 				}
 
@@ -96,15 +96,11 @@
 
 		function findWinningRanges() {
 			let winningRanges = [], 
-				slotRows = self.getRows()
-							.concat(self.getColumns())
-							.concat(self.getDiagonals());
+				slotRows = [...self.getRows(), ...self.getColumns(), ...self.getDiagonals()];
 
 			for (let r = 0; r < slotRows.length; r++) {
 				winningRanges = winningRanges.concat(
-					cf.Util.findRanges(slotRows[r]).filter(function(range) { 
-						return range.isWinningRange(); 
-					})
+					cf.Util.findRanges(slotRows[r]).filter(range=> range.isWinningRange())
 				);
 			}
 
@@ -121,7 +117,8 @@
 			}
 
 			// Doesn't handle multiple winners very well though...
-			return winningRanges[0].player; 
+			const [winner] = winningRanges;  
+			return winner.player; 
 		};
 	};
 }(window.ConnectFour = window.ConnectFour || {}));

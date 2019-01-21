@@ -9,11 +9,7 @@
 		
 		service.getAllMatches = () => {
 			const json = localStorage.getItem(localStorageKey);
-			let matches = [];
-			if (!!json) {
-				matches = JSON.parse(json);
-			}
-			return matches;
+			return !!json ? JSON.parse(json) : [];
 		};
 
 		service.findByTimestamp = timestamp => service
@@ -29,8 +25,7 @@
 		};
 
 		service.saveMatch = (matchData) => {
-			const matches = service.getAllMatches();
-			matches.push(matchData);
+			const matches = [...service.getAllMatches(), matchData];
 			const json = JSON.stringify(matches);
 			localStorage.setItem(localStorageKey, json);
 		};

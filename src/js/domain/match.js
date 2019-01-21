@@ -25,7 +25,7 @@
 
 		// Return a duplicate so the actual undo stack
 		// can not be modified by callers.
-		self.getMoves = () => undoStack.slice();
+		self.getMoves = () => [...undoStack];
 
 		self.canRedo = () => redoStack.length > 0;
 		self.canUndo = () => undoStack.length > 0;

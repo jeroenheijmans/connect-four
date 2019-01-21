@@ -14,8 +14,8 @@
 			});
 		}
 
-		self.getRowIndex = function() { return rowIndex; }
-		self.getColIndex = function() { return colIndex; }
+		self.getRowIndex = () => rowIndex;
+		self.getColIndex = () => colIndex;
 
 		self.addChangeEventHandler = h => stateChangeEventHandlers.push(h);
 		self.getPlayer = () => takenByPlayer;
