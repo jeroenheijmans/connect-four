@@ -11,8 +11,8 @@
 			    ranges.push(new cf.Range(1, currentPlayer));
 			}
 		    
-		    for (let i = 1; i < lineOfSlots.length; i++) {
-		    	currentPlayer = lineOfSlots[i].getPlayer();
+		    for (const slot of lineOfSlots.slice(1)) {
+		    	currentPlayer = slot.getPlayer();
 
 		        if (!!currentPlayer && previousPlayer === currentPlayer) {
 		            ranges[ranges.length - 1].rangeLength++;
@@ -39,13 +39,13 @@
 
 			match.timestamp = matchData.timestamp;
 
-			for (let i = 0; i < matchData.moves.length; i++) {
+			for (const [i, move] of matchData.moves.entries()) {
 				// TODO: This does not feel quite right. Why do Move
 				// objects need a player at all? Couldn't a match
 				// determine that whenever (re)doing it?
 				const player = i % 2 === 0 ? match.player1 : match.player2;
 
-				moves.push(new cf.Move(matchData.moves[i][0], player));
+				moves.push(new cf.Move(move[0], player));
 			}
 
 			match.loadMovesOnRedoStack(moves);

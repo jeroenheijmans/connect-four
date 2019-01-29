@@ -15,10 +15,10 @@
 		};
 
 		self.redo = board => {
-			for (let r = 0; r < board.height; r++) {
-				if (board.slots[r][colIndex].isEmpty()) {
-					board.slots[r][colIndex].setPlayer(player);
-					rowIndex = r;
+			for (const [i, row] of board.slots.entries()) {
+				if (row[colIndex].isEmpty()) {
+					row[colIndex].setPlayer(player);
+					rowIndex = i;
 					return;
 				}
 			}

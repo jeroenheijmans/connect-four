@@ -27,9 +27,9 @@
 		}
 
 		self.clear = function() {
-			for (let r = 0; r < self.slots.length; r++){
-				for (let c = 0; c < self.slots[r].length; c++) {
-					self.slots[r][c].clear();
+			for (const row of self.slots) {
+				for (const slot of row) {
+					slot.clear();
 				}
 			}
 		};
@@ -98,9 +98,9 @@
 			let winningRanges = [], 
 				slotRows = [...self.getRows(), ...self.getColumns(), ...self.getDiagonals()];
 
-			for (let r = 0; r < slotRows.length; r++) {
+			for (const row of slotRows) {
 				winningRanges = winningRanges.concat(
-					cf.Util.findRanges(slotRows[r]).filter(range=> range.isWinningRange())
+					cf.Util.findRanges(row).filter(range=> range.isWinningRange())
 				);
 			}
 
@@ -117,7 +117,7 @@
 			}
 
 			// Doesn't handle multiple winners very well though...
-			const [winner] = winningRanges;  
+			const [winner] = winningRanges;
 			return winner.player; 
 		};
 	};

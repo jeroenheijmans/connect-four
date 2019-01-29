@@ -24,8 +24,8 @@
 	test("Default board should be empty", assert => {
 		const board = new cf.Board();
 		assert.expect(defaultBoardWidth * defaultBoardHeight);
-		board.slots.forEach(function(row) {
-			row.forEach(function(slot) {
+		board.slots.forEach(row => {
+			row.forEach(slot => {
 				assert.strictEqual(slot.isEmpty(), true);
 			});
 		});
