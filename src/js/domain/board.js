@@ -95,16 +95,12 @@
 		};
 
 		function findWinningRanges() {
-			let winningRanges = [], 
-				slotRows = [...self.getRows(), ...self.getColumns(), ...self.getDiagonals()];
+			let slotRows = [...self.getRows(), ...self.getColumns(), ...self.getDiagonals()];
 
-			for (const row of slotRows) {
-				winningRanges = winningRanges.concat(
-					cf.Util.findRanges(row).filter(range=> range.isWinningRange())
-				);
-			}
-
-			return winningRanges;
+			return slotRows.reduce((prev, curr) => [
+					...prev,
+					...cf.Util.findRanges(curr).filter(range=> range.isWinningRange())
+				], []);
 		}
 
 		self.hasWinner = () => findWinningRanges().length > 0;
