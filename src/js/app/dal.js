@@ -1,4 +1,4 @@
-(function(cf) {
+(function() {
 
 	'use strict';
 
@@ -35,4 +35,4 @@
 		return service;
 	}]);
 	
-}(window.ConnectFour = window.ConnectFour || {}));
+}());

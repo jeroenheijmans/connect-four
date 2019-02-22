@@ -1,4 +1,4 @@
-(function(cf) {
+(function() {
 
 	'use strict';
 
@@ -6,4 +6,4 @@
 
 	app.filter('toLocale', () => (stamp) => (new Date(stamp)).toLocaleString());
 	
-}(window.ConnectFour = window.ConnectFour || {}));
+}());

@@ -25,11 +25,6 @@
 			}
 		};
 
-		service.doMove = colIndex => {
-			const move = new cf.Move(colIndex, service.currentMatch.currentPlayer);
-			match.doMove(move);
-		};
-
 		return service;
 	}]);
 	

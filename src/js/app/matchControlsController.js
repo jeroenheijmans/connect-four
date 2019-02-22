@@ -1,4 +1,4 @@
-(function(cf) {
+(function() {
 
 	'use strict';
 
@@ -8,4 +8,4 @@
 		$scope.redo = gameMaster.redo;
 	}]);
 	
-}(window.ConnectFour = window.ConnectFour || {}));
+}());

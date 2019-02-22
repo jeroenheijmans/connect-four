@@ -1,0 +1,13 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "globals": {
+    "angular": "readable"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-extra-boolean-cast": "off"
+  }
+}

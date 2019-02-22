@@ -1,4 +1,4 @@
-(function(cf) {
+(function() {
 
 	'use strict';
 
@@ -23,4 +23,4 @@
 		$scope.clearHistory = () => matchRepository.clear();
 	}]);
 	
-}(window.ConnectFour = window.ConnectFour || {}));
+}());
