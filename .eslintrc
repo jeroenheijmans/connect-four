@@ -6,8 +6,12 @@
   "globals": {
     "angular": "readable"
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:angular/johnpapa"
+  ],
   "rules": {
-    "no-extra-boolean-cast": "off"
+    "no-extra-boolean-cast": "off",
+    "no-run-logic": "off"
   }
 }
