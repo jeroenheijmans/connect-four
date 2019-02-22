@@ -8,4 +8,6 @@
 		self.rangeLength = rangeLength;
 		self.isWinningRange = () => self.rangeLength >= minLengthToWin;
 	};
+	
+	/*eslint angular/window-service: 0*/
 }(window.ConnectFour = window.ConnectFour || {}));

@@ -2,8 +2,8 @@
 
 	'use strict';
 
-	const app = angular.module('connectFourApp', []);
-
-	app.filter('toLocale', () => (stamp) => (new Date(stamp)).toLocaleString());
+	angular
+		.module('connectFourApp', [])
+		.filter('toLocale', () => (stamp) => (new Date(stamp)).toLocaleString());
 	
 }());

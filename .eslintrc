@@ -12,6 +12,8 @@
   ],
   "rules": {
     "no-extra-boolean-cast": "off",
-    "no-run-logic": "off"
+    "angular/function-type": "off",
+    "angular/file-name": "off",
+    "angular/controller-as": "off"
   }
 }

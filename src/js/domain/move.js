@@ -26,4 +26,6 @@
 
 		self.getCoordinates = () => [colIndex, rowIndex];
 	};
+	
+	/*eslint angular/window-service: 0*/
 }(window.ConnectFour = window.ConnectFour || {}));

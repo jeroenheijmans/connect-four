@@ -68,4 +68,6 @@
 		self.getWinnerText = () => 
 			highlight`WINNER: ${self.getWinner() ? self.getWinner().name : ''}`;
 	};
+	
+	/*eslint angular/window-service: 0*/
 }(window.ConnectFour = window.ConnectFour || {}));

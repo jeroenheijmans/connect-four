@@ -28,4 +28,5 @@
 		return service;
 	}]);
 	
+	/*eslint angular/window-service: 0*/
 }(window.ConnectFour = window.ConnectFour || {}));
