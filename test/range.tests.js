@@ -32,4 +32,5 @@
 		assert.strictEqual(range.isWinningRange(), true);
 	});
 
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

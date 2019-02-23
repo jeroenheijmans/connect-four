@@ -11,4 +11,6 @@
 		const player = new cf.Player();
 		assert.ok(!!player.name);
 	});
+
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

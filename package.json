@@ -4,7 +4,9 @@
     "start": "npm-run-all --parallel serve watch",
     "serve": "serve .",
     "watch": "livereload .",
-    "lint": "eslint src/js/**"
+    "lint": "npm-run-all lint-test lint-src",
+    "lint-test": "eslint test/**/*.js",
+    "lint-src": "eslint src/js/**/*.js"
   },
   "repository": {
     "type": "git",

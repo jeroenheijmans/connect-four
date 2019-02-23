@@ -11,6 +11,7 @@
     "plugin:angular/johnpapa"
   ],
   "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "_", "varsIgnorePattern": "_" }],
     "no-extra-boolean-cast": "off",
     "angular/function-type": "off",
     "angular/file-name": "off",

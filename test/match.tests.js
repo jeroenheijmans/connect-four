@@ -166,4 +166,5 @@
 		assert.strictEqual(moves[0], fakeMove);
 	});
 
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

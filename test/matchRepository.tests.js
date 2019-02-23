@@ -54,7 +54,7 @@
 			assert.ok(true);
 			return [];
 		};
-		const repository = $injector.get('matchRepository');
+		const _ = $injector.get('matchRepository');
 	});
 
 	test("Getting all matches converts them to Match objects", assert => {
@@ -73,7 +73,7 @@
 			return [];
 		}
 		assert.expect(1);
-		const matches = repository.findByTimestamp(testTimestamp);		
+		const _ = repository.findByTimestamp(testTimestamp);		
 	});
 
 	test("Finding by timestamp will also accept numbers as strings", assert => {
@@ -84,7 +84,7 @@
 			return [];
 		}
 		assert.expect(1);
-		const matches = repository.findByTimestamp(testTimestamp.toString());		
+		const _ = repository.findByTimestamp(testTimestamp.toString());		
 	});
 
 	test("Finding by timestamp will return Match objects", assert => {
@@ -109,4 +109,5 @@
 		assert.strictEqual(repository.matches.length, 0);
 	});
 
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

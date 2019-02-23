@@ -83,8 +83,9 @@
 
 	test("Will fail early if colIndex is not provided", assert => {
 		assert.throws(() => {
-			const move = new cf.Move();
+			const _ = new cf.Move();
 		});
 	});
 
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));

@@ -159,4 +159,5 @@
 		assert.strictEqual(board.slots[0][0].isEmpty(), true);
 	});
 
+// eslint-disable-next-line angular/window-service
 }(window.ConnectFour = window.ConnectFour || {}, QUnit.test));
