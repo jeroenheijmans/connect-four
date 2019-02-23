@@ -72,7 +72,7 @@
 			assert.strictEqual(timestamp, testTimestamp, "Method should be called with provided fake timestamp");
 			return [];
 		}
-		expect(1);
+		assert.expect(1);
 		const matches = repository.findByTimestamp(testTimestamp);		
 	});
 
@@ -83,7 +83,7 @@
 			assert.strictEqual(timestamp, testTimestamp, "Method should be called with provided fake timestamp");
 			return [];
 		}
-		expect(1);
+		assert.expect(1);
 		const matches = repository.findByTimestamp(testTimestamp.toString());		
 	});
 
