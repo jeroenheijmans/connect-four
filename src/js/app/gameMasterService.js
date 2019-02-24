@@ -1,32 +1,27 @@
-(function(cf) {
+import { Board, Match } from '../domain'
 
-	'use strict';
+export const gameMasterServiceWithDeps = [() => {
+  const service = {
+    board: new Board(),
+    currentMatch: new Match()
+  };
 
-	angular.module('connectFourApp').factory('gameMaster', [() => {
-		const service = {
-			board: new cf.Board(),
-			currentMatch: new cf.Match()
-		};
+  service.startNewMatch = () => {
+    service.currentMatch = new Match();
+    service.currentMatch.start(service.board);
+  };
 
-		service.startNewMatch = () => {
-			service.currentMatch = new cf.Match();
-			service.currentMatch.start(service.board);
-		};
+  service.undo = () => {
+    if (service.currentMatch.canUndo()) {
+      service.currentMatch.undo();
+    }
+  };
 
-		service.undo = () => {
-			if (service.currentMatch.canUndo()) {
-				service.currentMatch.undo();
-			}
-		};
+  service.redo = () => {
+    if (service.currentMatch.canRedo()) {
+      service.currentMatch.redo();
+    }
+  };
 
-		service.redo = () => {
-			if (service.currentMatch.canRedo()) {
-				service.currentMatch.redo();
-			}
-		};
-
-		return service;
-	}]);
-	
-	/*eslint angular/window-service: 0*/
-}(window.ConnectFour = window.ConnectFour || {}));
+  return service;
+}];

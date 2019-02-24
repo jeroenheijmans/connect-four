@@ -1,38 +1,32 @@
-(function() {
+export const dalWithDeps = [() => {
+  const localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
 
-	'use strict';
+  const service = { };
+  
+  service.getAllMatches = () => {
+    const json = localStorage.getItem(localStorageKey);
+    return !!json ? JSON.parse(json) : [];
+  };
 
-	angular.module('connectFourApp').factory('dal', [() => {
-		const localStorageKey = "nl.jeroenheijmans.connect-four"; // Yes.... Java roots as well :D
+  service.findByTimestamp = timestamp => service
+    .getAllMatches()
+    .filter(m => m.timestamp === timestamp);
 
-		const service = { };
-		
-		service.getAllMatches = () => {
-			const json = localStorage.getItem(localStorageKey);
-			return !!json ? JSON.parse(json) : [];
-		};
+  service.getLatestMatch = () => {
+    const matches = service.getAllMatches();
+    if (matches.length > 0) {
+      return matches[matches.length - 1];
+    }
+    return null;
+  };
 
-		service.findByTimestamp = timestamp => service
-			.getAllMatches()
-			.filter(m => m.timestamp === timestamp);
+  service.saveMatch = (matchData) => {
+    const matches = [...service.getAllMatches(), matchData];
+    const json = JSON.stringify(matches);
+    localStorage.setItem(localStorageKey, json);
+  };
 
-		service.getLatestMatch = () => {
-			const matches = service.getAllMatches();
-			if (matches.length > 0) {
-				return matches[matches.length - 1];
-			}
-			return null;
-		};
+  service.clear = () => localStorage.clear();
 
-		service.saveMatch = (matchData) => {
-			const matches = [...service.getAllMatches(), matchData];
-			const json = JSON.stringify(matches);
-			localStorage.setItem(localStorageKey, json);
-		};
-
-		service.clear = () => localStorage.clear();
-
-		return service;
-	}]);
-	
-}());
+  return service;
+}];

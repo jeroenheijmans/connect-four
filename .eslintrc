@@ -4,12 +4,14 @@
     "browser": true
   },
   "globals": {
-    "angular": "readable"
   },
   "extends": [
     "eslint:recommended",
     "plugin:angular/johnpapa"
   ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
     "no-unused-vars": ["error", { "argsIgnorePattern": "_", "varsIgnorePattern": "_" }],
     "no-extra-boolean-cast": "off",

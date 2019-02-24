@@ -1,13 +1,9 @@
-(function (cf) {
-	const minLengthToWin = 4; // Connect *FOUR* :-)
+const minLengthToWin = 4; // Connect *FOUR* :-)
 
-	cf.Range = function(rangeLength, player) {
-		const self = this;
-		
-		self.player = player;
-		self.rangeLength = rangeLength;
-		self.isWinningRange = () => self.rangeLength >= minLengthToWin;
-	};
+export default function Range(rangeLength, player) {
+	const self = this;
 	
-	/*eslint angular/window-service: 0*/
-}(window.ConnectFour = window.ConnectFour || {}));
+	self.player = player;
+	self.rangeLength = rangeLength;
+	self.isWinningRange = () => self.rangeLength >= minLengthToWin;
+}
