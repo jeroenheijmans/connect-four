@@ -11,6 +11,10 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
+  devServer: {
+    contentBase: "./dist",
+    port: 7700
+  },
   module: {
     rules: [
       {

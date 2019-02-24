@@ -3,6 +3,7 @@
   "author": "Jeroen Heijmans",
   "private": true,
   "scripts": {
+    "dev": "webpack-dev-server --mode development",
     "build": "webpack",
     "lint": "npm-run-all lint-test lint-src",
     "lint-test": "eslint test/**/*.js",
@@ -24,7 +25,8 @@
     "qunit": "^2.9.2",
     "serve": "^10.1.1",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.0"
   },
   "dependencies": {
     "angular": "^1.4.3",
