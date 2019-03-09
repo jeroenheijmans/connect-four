@@ -1,9 +1,12 @@
 const minLengthToWin = 4; // Connect *FOUR* :-)
 
-export default function Range(rangeLength, player) {
-	const self = this;
-	
-	self.player = player;
-	self.rangeLength = rangeLength;
-	self.isWinningRange = () => self.rangeLength >= minLengthToWin;
+export default class Range {
+  constructor(rangeLength, player) {
+    this.player = player;
+    this.rangeLength = rangeLength;
+  }
+
+  isWinningRange() {
+    return this.rangeLength >= minLengthToWin;
+  }
 }

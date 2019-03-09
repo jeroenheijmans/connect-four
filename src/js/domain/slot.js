@@ -1,40 +1,44 @@
-export default function Slot(rowIndex, colIndex) {
-  let self = this,
-    takenByPlayer = null,
-    stateChangeEventHandlers = [];
+export default class Slot {
+  constructor(rowIndex, colIndex) {
+    this.takenByPlayer = null;
+    this.stateChangeEventHandlers = [];
 
-  function notifyStateChangeSubscribers(){
-    stateChangeEventHandlers.forEach(handler => {
+    this.getRowIndex = () => rowIndex;
+    this.getColIndex = () => colIndex;
+  }
+
+  notifyStateChangeSubscribers() {
+    this.stateChangeEventHandlers.forEach(handler => {
       if (!!handler) {
         handler({
-          slot: self
+          slot: this
         });
       }
     });
   }
 
-  self.getRowIndex = () => rowIndex;
-  self.getColIndex = () => colIndex;
+  addChangeEventHandler(h) {
+    this.stateChangeEventHandlers.push(h);
+  }
 
-  self.addChangeEventHandler = h => stateChangeEventHandlers.push(h);
-  self.getPlayer = () => takenByPlayer;
-  self.isEmpty = () => takenByPlayer === null;
+  getPlayer() { return this.takenByPlayer; }
+  isEmpty() { return this.takenByPlayer === null; }
 
-  self.setPlayer = (player) => {
-    if (takenByPlayer === player) {
+  setPlayer(player) {
+    if (this.takenByPlayer === player) {
       return;
     }
 
-    takenByPlayer = player;
-    notifyStateChangeSubscribers();
-  };
+    this.takenByPlayer = player;
+    this.notifyStateChangeSubscribers();
+  }
 
-  self.clear = () => {
-    if (self.isEmpty()) {
+  clear() {
+    if (this.isEmpty()) {
       return;
     }
 
-    takenByPlayer = null;
-    notifyStateChangeSubscribers();
-  };
+    this.takenByPlayer = null;
+    this.notifyStateChangeSubscribers();
+  }
 }

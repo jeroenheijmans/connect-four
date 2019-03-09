@@ -1,70 +1,70 @@
 import Slot from './slot'
 import { findRanges } from './util'
 
-export default function Board() {
-  const self = this,
-    stateChangeEventHandlers = [];
+export default class Board {
+  constructor () {
+    this.stateChangeEventHandlers = [];
+    this.width = 7;
+    this.height = 6;
+    this.slots = [];
 
-  function notifyStateChangeSubscribers(eventArgs) {
-    stateChangeEventHandlers.forEach(handler => {
-      if (!!handler) {
-        handler(eventArgs);
+    for (let r = 0; r < this.height; r++) {
+      this.slots[r] = [];
+  
+      for (let c = 0; c < this.width; c++) {
+        this.slots[r][c] = new Slot(r, c);
+  
+        this.slots[r][c].addChangeEventHandler(eventArgs => {
+          this.stateChangeEventHandlers.forEach(handler => {
+            if (!!handler) {
+              handler(eventArgs);
+            }
+          });
+        });
       }
-    });
-  }
-
-  self.width = 7;
-  self.height = 6;
-
-  self.slots = [];
-
-  for (let r = 0; r < self.height; r++) {
-    self.slots[r] = [];
-
-    for (let c = 0; c < self.width; c++) {
-      self.slots[r][c] = new Slot(r, c);
-
-      self.slots[r][c].addChangeEventHandler(notifyStateChangeSubscribers);
     }
   }
 
-  self.clear = function() {
-    for (const row of self.slots) {
+  clear() {
+    for (const row of this.slots) {
       for (const slot of row) {
         slot.clear();
       }
     }
-  };
+  }
 
-  self.addBoardChangeEventHandler = h => stateChangeEventHandlers.push(h);
-  self.slotStateChangeEventHandler = e => notifyStateChangeSubscribers(e);
-  self.getRows = () => self.slots;
+  addBoardChangeEventHandler(h) { this.stateChangeEventHandlers.push(h); }
+  slotStateChangeEventHandler(e) { this.notifyStateChangeSubscribers(e); }
 
-  self.getColumns = () => {
+  getRows() {
+    return this.slots;
+  }
+
+  getColumns() {
     const transposed = [];
 
-    for (let c = 0; c < self.width; c++) {
+    for (let c = 0; c < this.width; c++) {
       transposed[c] = [];
-      for (let r = 0; r < self.height; r++) {
-        transposed[c][r] = self.slots[r][c];
+      for (let r = 0; r < this.height; r++) {
+        transposed[c][r] = this.slots[r][c];
       }
     }
 
     return transposed;
-  };
+  }
 
-  self.getDiagonals = () => {
+  getDiagonals() {
     let diagonalLines = [], fromRowIndex, fromColIndex, x, y;
 
     // 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
-    fromRowIndex = self.height - 1;
+    fromRowIndex = this.height - 1;
     fromColIndex = 0;
 
     do {
       diagonalLines.push([]);
 
-      for (let x = fromColIndex, y = fromRowIndex; x < self.width && y < self.height; x++, y++) {
-        diagonalLines[diagonalLines.length - 1].push(self.slots[y][x]);
+      for (let x = fromColIndex, y = fromRowIndex; x < this.width && y < this.height; x++, y++) {
+        diagonalLines[diagonalLines.length - 1].push(this.slots[y][x]);
       }
 
       if (fromRowIndex === 0) {
@@ -72,17 +72,17 @@ export default function Board() {
       } else {
         fromRowIndex--;
       }
-    } while (fromColIndex < self.width);
+    } while (fromColIndex < this.width);
 
     // MINUS 45 degree angle, move starting point TOPLEFT => BOTTOMLEFT => BOTTOMRIGHT
-    fromRowIndex = self.height - 1;
-    fromColIndex = self.width - 1;
+    fromRowIndex = this.height - 1;
+    fromColIndex = this.width - 1;
 
     do {
       diagonalLines.push([]);
 
-      for (x = fromColIndex, y = fromRowIndex; x >= 0 && y < self.height; x--, y++) {
-        diagonalLines[diagonalLines.length - 1].push(self.slots[y][x]);
+      for (x = fromColIndex, y = fromRowIndex; x >= 0 && y < this.height; x--, y++) {
+        diagonalLines[diagonalLines.length - 1].push(this.slots[y][x]);
       }
 
       if (fromRowIndex === 0) {
@@ -94,10 +94,10 @@ export default function Board() {
 
 
     return diagonalLines;
-  };
+  }
 
-  function findWinningRanges() {
-    let slotRows = [...self.getRows(), ...self.getColumns(), ...self.getDiagonals()];
+  findWinningRanges() {
+    let slotRows = [...this.getRows(), ...this.getColumns(), ...this.getDiagonals()];
 
     return slotRows.reduce((prev, curr) => [
         ...prev,
@@ -105,10 +105,12 @@ export default function Board() {
       ], []);
   }
 
-  self.hasWinner = () => findWinningRanges().length > 0;
+  hasWinner() {
+    return this.findWinningRanges().length > 0;
+  }
 
-  self.getWinner = () => {
-    const winningRanges = findWinningRanges();
+  getWinner() {
+    const winningRanges = this.findWinningRanges();
 
     if (winningRanges.length === 0) {
       return null;
@@ -117,5 +119,5 @@ export default function Board() {
     // Doesn't handle multiple winners very well though...
     const [winner] = winningRanges;
     return winner.player; 
-  };
+  }
 }

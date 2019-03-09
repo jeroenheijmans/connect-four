@@ -1,27 +1,32 @@
-export default function Move(colIndex, player) {
-	let self = this,
-		rowIndex = null;
+export default class Move {
+  constructor(colIndex, player) {
+    this.rowIndex = null;
+    this.colIndex = colIndex;
+    this.player = player;
 
-	if (typeof colIndex === "undefined") {
-		throw "Move constructor function requires colIndex";
-	}
+    if (typeof colIndex === "undefined") {
+      throw "Move constructor requires colIndex";
+    }
+  }
 
-	self.undo = board => {
-		if (rowIndex === null) {
-			throw new Error("Move redo has to be called before undo may be called");
-		}
-		board.slots[rowIndex][colIndex].clear();
-	};
+  undo(board) {
+    if (this.rowIndex === null) {
+      throw new Error("Move redo has to be called before undo may be called");
+    }
+    board.slots[this.rowIndex][this.colIndex].clear();
+  }
 
-	self.redo = board => {
-		for (const [i, row] of board.slots.entries()) {
-			if (row[colIndex].isEmpty()) {
-				row[colIndex].setPlayer(player);
-				rowIndex = i;
-				return;
-			}
-		}
-	};
+  redo(board) {
+    for (const [i, row] of board.slots.entries()) {
+      if (row[this.colIndex].isEmpty()) {
+        row[this.colIndex].setPlayer(this.player);
+        this.rowIndex = i;
+        return;
+      }
+    }
+  };
 
-	self.getCoordinates = () => [colIndex, rowIndex];
+  getCoordinates() {
+    return [this.colIndex, this.rowIndex];
+  }
 }
