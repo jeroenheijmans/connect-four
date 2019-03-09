@@ -1,36 +1,36 @@
-(function (cf, test) {
-	let fakeYellowPlayer;
+import Range from '../src/js/domain/range';
 
-	QUnit.module("Ranges", {
-		beforeEach() {
-			fakeYellowPlayer = {};
-		}
-	});
-	
-	test("Range with length 1 is not winning", assert => {
-		const range = new cf.Range(1, fakeYellowPlayer);
-		assert.strictEqual(range.isWinningRange(), false);
-	});
+const test = QUnit.test; // TODO: Get this rom an import
 
-	test("Range with length 2 is not winning", assert => {
-		const range = new cf.Range(2, fakeYellowPlayer);
-		assert.strictEqual(range.isWinningRange(), false);
-	});
+let fakeYellowPlayer;
 
-	test("Range with length 3 is not winning", assert => {
-		const range = new cf.Range(3, fakeYellowPlayer);
-		assert.strictEqual(range.isWinningRange(), false);
-	});
+QUnit.module("Ranges", {
+	beforeEach() {
+		fakeYellowPlayer = {};
+	}
+});
 
-	test("Range with length 4 is a winner", assert => {
-		const range = new cf.Range(4, fakeYellowPlayer);
-		assert.strictEqual(range.isWinningRange(), true);
-	});
+test("Range with length 1 is not winning", assert => {
+	const range = new Range(1, fakeYellowPlayer);
+	assert.strictEqual(range.isWinningRange(), false);
+});
 
-	test("Range with length 5 is a winner", assert => {
-		const range = new cf.Range(5, fakeYellowPlayer);
-		assert.strictEqual(range.isWinningRange(), true);
-	});
+test("Range with length 2 is not winning", assert => {
+	const range = new Range(2, fakeYellowPlayer);
+	assert.strictEqual(range.isWinningRange(), false);
+});
 
-// eslint-disable-next-line angular/window-service
-}(window.ConnectFour = window.ConnectFour || {}, QUnit.test));
+test("Range with length 3 is not winning", assert => {
+	const range = new Range(3, fakeYellowPlayer);
+	assert.strictEqual(range.isWinningRange(), false);
+});
+
+test("Range with length 4 is a winner", assert => {
+	const range = new Range(4, fakeYellowPlayer);
+	assert.strictEqual(range.isWinningRange(), true);
+});
+
+test("Range with length 5 is a winner", assert => {
+	const range = new Range(5, fakeYellowPlayer);
+	assert.strictEqual(range.isWinningRange(), true);
+});

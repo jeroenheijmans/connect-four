@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development",
     "build": "webpack",
+    "test": "webpack --config webpack.test.config.js",
+    "test-watch": "webpack-dev-server --config webpack.test.config.js --mode development",
     "lint": "npm-run-all lint-test lint-src",
     "lint-test": "eslint test/**/*.js",
     "lint-src": "eslint src/js/**/*.js"
