@@ -24,7 +24,7 @@ export default class Move {
         return;
       }
     }
-  };
+  }
 
   getCoordinates() {
     return [this.colIndex, this.rowIndex];
