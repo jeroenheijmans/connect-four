@@ -6,8 +6,8 @@ let fakeYellowPlayer, fakeRedPlayer;
 
 QUnit.module("Boards", {
   beforeEach: () => {
-    fakeYellowPlayer = {};
-    fakeRedPlayer = {};
+    fakeYellowPlayer = { yellow: true };
+    fakeRedPlayer = { red: true };
   }
 });
 
