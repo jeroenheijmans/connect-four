@@ -101,8 +101,18 @@ export default class Board {
 
     return slotRows.reduce((prev, curr) => [
         ...prev,
-        ...findRanges(curr).filter(range=> range.isWinningRange())
+        ...findRanges(curr).filter(range => range.isWinningRange())
       ], []);
+  }
+
+  *iterateWinningRanges() {
+    let slotRows = [...this.getRows(), ...this.getColumns(), ...this.getDiagonals()];
+
+    for (const rows of slotRows) {
+      for (const range of findRanges(rows).filter(range => range.isWinningRange())) {
+        yield range;
+      }
+    }
   }
 
   hasWinner() {
@@ -110,14 +120,10 @@ export default class Board {
   }
 
   getWinner() {
-    const winningRanges = this.findWinningRanges();
-
-    if (winningRanges.length === 0) {
-      return null;
+    for (let winningRange of this.iterateWinningRanges()) {
+      return winningRange.player;
     }
 
-    // Doesn't handle multiple winners very well though...
-    const [winner] = winningRanges;
-    return winner.player; 
+    return null;
   }
 }
