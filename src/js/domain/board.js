@@ -3,6 +3,9 @@ import { findRanges } from './util'
 
 export default class Board {
   constructor () {
+    // TC39 allows these to be moved to class public fields
+    // See: https://github.com/tc39/proposal-class-fields
+    // However, WebPack doesn't like that without a specific loader.
     this.stateChangeEventHandlers = new Set();
     this.width = 7;
     this.height = 6;
