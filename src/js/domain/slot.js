@@ -6,7 +6,7 @@ const propertiesWithWatchers = [
 export default class Slot {
   constructor(rowIndex, colIndex) {
     this.takenByPlayer = null;
-    this.stateChangeEventHandlers = [];
+    this.stateChangeEventHandlers = new Set();
 
     this.getRowIndex = () => rowIndex;
     this.getColIndex = () => colIndex;
@@ -45,7 +45,7 @@ export default class Slot {
   }
 
   addChangeEventHandler(h) {
-    this.stateChangeEventHandlers.push(h);
+    this.stateChangeEventHandlers.add(h);
   }
 
   getPlayer() { return this.takenByPlayer; }

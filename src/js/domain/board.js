@@ -3,7 +3,7 @@ import { findRanges } from './util'
 
 export default class Board {
   constructor () {
-    this.stateChangeEventHandlers = [];
+    this.stateChangeEventHandlers = new Set();
     this.width = 7;
     this.height = 6;
     this.slots = [];
@@ -33,7 +33,7 @@ export default class Board {
     }
   }
 
-  addBoardChangeEventHandler(h) { this.stateChangeEventHandlers.push(h); }
+  addBoardChangeEventHandler(h) { this.stateChangeEventHandlers.add(h); }
   slotStateChangeEventHandler(e) { this.notifyStateChangeSubscribers(e); }
 
   getRows() {
