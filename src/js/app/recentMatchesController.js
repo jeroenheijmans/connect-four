@@ -1,19 +1,20 @@
 export const recentMatchesControllerWithDeps = ['$scope', '$timeout', 'gameMaster', 'matchRepository', ($scope, $timeout, gameMaster, matchRepository) => {
   $scope.matchHeaders = matchRepository.matches;
 
-  $scope.startReplay = function(matchHeader) {
+  $scope.startReplay = async function(matchHeader) {
     const match = matchRepository.findByTimestamp(matchHeader.timestamp)[0];
     
     match.start(gameMaster.board);
 
-    function delayedMove() {
+    async function delayedMove() {
       if (match.canRedo()) {
         match.redo();
-        $timeout(() => delayedMove(), 500);
+        await $timeout(() => { }, 500);
+        await delayedMove();
       }
     }
 
-    delayedMove();
+    await delayedMove();
   };
 
   $scope.clearHistory = () => matchRepository.clear();
